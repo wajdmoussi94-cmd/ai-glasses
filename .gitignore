@@ -1,0 +1,29 @@
+# ملفات يجب تجاهلها في Git
+
+# ملف النموذج الكبير (لا ترفعه على GitHub)
+*.gguf
+
+# البيئات الافتراضية
+venv_311/
+.venv/
+env/
+
+# مجلد briefcase
+.briefcase/
+build/
+
+# ملفات بايثون
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# ملفات ويندوز
+Thumbs.db
+Desktop.ini
+
+# ملفات IDE
+.vscode/
+.idea/
+*.swp

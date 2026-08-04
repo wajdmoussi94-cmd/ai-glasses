@@ -1,0 +1,11 @@
+Metadata-Version: 2.1
+Briefcase-Version: 0.4.4
+Name: ai_glasses
+Formal-Name: AI Glasses
+App-ID: com.example.ai-glasses
+Version: 0.1.0
+Home-page: https://example.com/ai_glasses
+Download-URL: https://example.com/ai_glasses
+Author: User
+Author-email: user@example.com
+Summary: Smart Glasses Local AI App using Gemma

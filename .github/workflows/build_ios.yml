@@ -1,0 +1,49 @@
+name: Build AI Glasses for iOS
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:  # يسمح بتشغيل البناء يدوياً من GitHub
+
+jobs:
+  build-ios:
+    name: Build for iPhone (iOS)
+    runs-on: macos-latest  # GitHub يوفر Mac مجاناً هنا
+
+    steps:
+      # 1. تحميل كود المشروع
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # 2. تثبيت بايثون 3.11
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      # 3. تثبيت مكتبات المشروع
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install briefcase toga
+          pip install llama-cpp-python --extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cpu
+
+      # 4. إنشاء هيكل مشروع iOS
+      - name: Create iOS Project
+        run: |
+          briefcase create iOS
+
+      # 5. بناء التطبيق لـ iOS (Simulator)
+      - name: Build iOS App
+        run: |
+          briefcase build iOS
+
+      # 6. رفع ملف البناء كـ Artifact يمكن تحميله
+      - name: Upload iOS Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: AI-Glasses-iOS-Build
+          path: build/ai_glasses/ios/
+          retention-days: 7

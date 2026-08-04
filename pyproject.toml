@@ -1,0 +1,25 @@
+[tool.briefcase]
+project_name = "AI Glasses"
+bundle = "com.example"
+version = "0.1.0"
+url = "https://example.com/ai_glasses"
+license = "MIT license"
+author = "User"
+author_email = "user@example.com"
+
+[tool.briefcase.app.ai_glasses]
+formal_name = "AI Glasses"
+description = "Smart Glasses Local AI App using Gemma"
+long_description = """A local AI application designed for iOS."""
+icon = "briefcase_icon"
+sources = ["src/ai_glasses"]
+test_sources = ["tests"]
+requires = [
+    "toga"
+]
+
+[tool.briefcase.app.ai_glasses.ios]
+requires = [
+    "toga-iOS"
+]
+supported = true
