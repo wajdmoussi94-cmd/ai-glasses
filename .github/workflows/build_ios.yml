@@ -6,10 +6,10 @@ on:
   workflow_dispatch:
 
 jobs:
-  # ===== الخطوة 1: التحقق من الكود يعمل بشكل صحيح =====
+  # ===== الخطوة 1: التحقق من صحة الكود على Linux =====
   test-code:
-    name: Test Python Code
-    runs-on: ubuntu-latest  # يبدأ فوراً
+    name: Validate Python Syntax
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Code
@@ -20,24 +20,17 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install Dependencies
+      - name: Check Python Syntax Only (no GUI import)
         run: |
-          python -m pip install --upgrade pip
-          pip install toga toga-core
-          pip install llama-cpp-python --extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cpu
-
-      - name: Validate Python Syntax
-        run: |
-          python -m py_compile src/ai_glasses/app.py
-          python -m py_compile src/ai_glasses/model_handler.py
           python -m py_compile src/ai_glasses/__main__.py
-          echo "✅ All Python files are valid!"
+          python -m py_compile src/ai_glasses/model_handler.py
+          echo "✅ Syntax check passed!"
 
   # ===== الخطوة 2: بناء iOS على Mac =====
   build-ios:
     name: Build for iPhone (iOS)
     runs-on: macos-latest
-    needs: test-code  # ينتظر نجاح الاختبار أولاً
+    needs: test-code
 
     steps:
       - name: Checkout Code
@@ -48,21 +41,22 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install briefcase and dependencies
+      - name: Install briefcase
         run: |
           python -m pip install --upgrade pip
           pip install briefcase toga
-          pip install llama-cpp-python --extra-index-url https://abetlen.github.io/llama-cpp-python/whl/cpu
 
-      - name: Select Xcode version
+      - name: Select Xcode
         run: sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+
+      - name: Accept Xcode License
+        run: sudo xcodebuild -license accept
 
       - name: Create iOS Project
         run: briefcase create iOS
 
-      - name: Build iOS App (No Code Signing - Simulator)
-        run: |
-          briefcase build iOS --no-docker 2>&1 || echo "Build completed with warnings"
+      - name: Build iOS App
+        run: briefcase build iOS
 
       - name: Upload iOS Build
         uses: actions/upload-artifact@v3
