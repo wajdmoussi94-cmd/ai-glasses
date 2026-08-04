@@ -53,10 +53,10 @@ jobs:
         run: sudo xcodebuild -license accept
 
       - name: Create iOS Project
-        run: briefcase create iOS
+        run: briefcase build ios --device
 
       - name: Build iOS App
-        run: briefcase build iOS
+        run: briefcase build ios --device
 
       - name: Upload iOS Build
         uses: actions/upload-artifact@v4
