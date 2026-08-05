@@ -23,3 +23,7 @@ icon = "src/ai_glasses/resources/ai_glasses"
 requires = [
     "toga"
 ]
+
+[tool.briefcase.app.ai_glasses.iOS.info_plist]
+NSCameraUsageDescription = "AI Glasses requires camera access to capture images for visual AI processing."
+NSMicrophoneUsageDescription = "AI Glasses requires microphone access for voice command AI processing."
