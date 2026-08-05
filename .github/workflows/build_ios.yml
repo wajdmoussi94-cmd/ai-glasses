@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  # ===== Step 1: Validate Python on Linux =====
+  # ===== Step 1: Validate Python Syntax =====
   test-code:
     name: Validate Python Syntax
     runs-on: ubuntu-latest
@@ -26,9 +26,9 @@ jobs:
           python -m py_compile src/ai_glasses/model_handler.py
           echo "✅ Syntax check passed!"
 
-  # ===== Step 2: Build iOS on Mac M1/M2 (macos-14 - Instant Queue) =====
+  # ===== Step 2: Build for PHYSICAL iPhone Device (iphoneos ARM64) =====
   build-ios:
-    name: Build for iPhone (iOS)
+    name: Build for Physical iPhone Device
     runs-on: macos-14
     needs: test-code
 
@@ -41,10 +41,10 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install briefcase and toga
+      - name: Install briefcase, toga, and pillow (pillow is REQUIRED for custom icon generation)
         run: |
           python -m pip install --upgrade pip
-          pip install briefcase toga
+          pip install briefcase toga pillow
 
       - name: Accept Xcode License
         run: sudo xcodebuild -license accept
@@ -52,10 +52,11 @@ jobs:
       - name: Create iOS Project
         run: briefcase create iOS
 
-      - name: Build iOS App
-        run: briefcase build iOS
+      - name: Build for Physical Device (iphoneos SDK ARM64)
+        run: |
+          briefcase build iOS -d -- --no-sign CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO PROVISIONING_PROFILE_SPECIFIER=""
 
-      - name: Upload iOS Build
+      - name: Upload iOS Device Build Artifact
         uses: actions/upload-artifact@v4
         with:
           name: AI-Glasses-iOS-App
