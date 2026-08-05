@@ -26,9 +26,9 @@ jobs:
           python -m py_compile src/ai_glasses/model_handler.py
           echo "✅ Syntax check passed!"
 
-  # ===== Step 2: Build for PHYSICAL iPhone Device (iphoneos ARM64) =====
+  # ===== Step 2: Build iOS App =====
   build-ios:
-    name: Build for Physical iPhone Device
+    name: Build for iPhone (iOS)
     runs-on: macos-14
     needs: test-code
 
@@ -41,7 +41,7 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install briefcase, toga, and pillow (pillow is REQUIRED for custom icon generation)
+      - name: Install briefcase, toga, and pillow
         run: |
           python -m pip install --upgrade pip
           pip install briefcase toga pillow
@@ -49,14 +49,13 @@ jobs:
       - name: Accept Xcode License
         run: sudo xcodebuild -license accept
 
-      - name: Create iOS Project
+      - name: Create iOS Project (with Pillow for custom icon generation)
         run: briefcase create iOS
 
-      - name: Build for Physical Device (iphoneos SDK ARM64)
-        run: |
-          briefcase build iOS -d -- --no-sign CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO PROVISIONING_PROFILE_SPECIFIER=""
+      - name: Build iOS App
+        run: briefcase build iOS
 
-      - name: Upload iOS Device Build Artifact
+      - name: Upload iOS Build
         uses: actions/upload-artifact@v4
         with:
           name: AI-Glasses-iOS-App
