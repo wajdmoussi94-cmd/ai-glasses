@@ -26,10 +26,10 @@ jobs:
           python -m py_compile src/ai_glasses/model_handler.py
           echo "✅ Syntax check passed!"
 
-  # ===== Step 2: Build iOS on Mac =====
+  # ===== Step 2: Build iOS on Mac M1/M2 (macos-14 - Instant Queue) =====
   build-ios:
     name: Build for iPhone (iOS)
-    runs-on: macos-13
+    runs-on: macos-14
     needs: test-code
 
     steps:
@@ -49,7 +49,7 @@ jobs:
       - name: Accept Xcode License
         run: sudo xcodebuild -license accept
 
-      - name: Create iOS Project (MUST run before build)
+      - name: Create iOS Project
         run: briefcase create iOS
 
       - name: Build iOS App
