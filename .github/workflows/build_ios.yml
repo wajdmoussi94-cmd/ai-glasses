@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  # ===== الخطوة 1: التحقق من صحة الكود على Linux =====
+  # ===== Step 1: Validate Python on Linux =====
   test-code:
     name: Validate Python Syntax
     runs-on: ubuntu-latest
@@ -20,16 +20,16 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Check Python Syntax Only (no GUI import)
+      - name: Check Python Syntax
         run: |
           python -m py_compile src/ai_glasses/__main__.py
           python -m py_compile src/ai_glasses/model_handler.py
           echo "✅ Syntax check passed!"
 
-  # ===== الخطوة 2: بناء iOS على Mac =====
+  # ===== Step 2: Build iOS on Mac =====
   build-ios:
     name: Build for iPhone (iOS)
-    runs-on: macos-latest
+    runs-on: macos-13
     needs: test-code
 
     steps:
@@ -41,22 +41,19 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install briefcase
+      - name: Install briefcase and toga
         run: |
           python -m pip install --upgrade pip
           pip install briefcase toga
 
-      - name: Select Xcode
-        run: sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
-
       - name: Accept Xcode License
         run: sudo xcodebuild -license accept
 
-      - name: Create iOS Project
-        run: briefcase build ios --device
+      - name: Create iOS Project (MUST run before build)
+        run: briefcase create iOS
 
       - name: Build iOS App
-        run: briefcase build ios --device
+        run: briefcase build iOS
 
       - name: Upload iOS Build
         uses: actions/upload-artifact@v4
