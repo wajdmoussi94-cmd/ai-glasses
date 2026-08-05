@@ -1,213 +1,141 @@
 import toga
 from toga.style import Pack
-from toga.style.pack import COLUMN, ROW, CENTER
-import threading
+from toga.style.pack import COLUMN, ROW
+import asyncio
+from .model_handler import ModelHandler
 
-class AIGlassesApp(toga.App):
+
+class AIGlasses(toga.App):
     def startup(self):
-        # 1. بناء واجهة المستخدم فوراً لمنع النظام من إنهاء التطبيق
-        main_box = toga.Box(style=Pack(direction=COLUMN, padding=12, background_color="#121212"))
+        self.main_window = toga.MainWindow(title="AI Glasses — Powered by Gemma 4 E2B")
 
-        # الشريط العلوي للحالة
+        # --- Header ---
+        header_label = toga.Label(
+            "🕶️  AI Glasses",
+            style=Pack(padding=(15, 10, 5, 10), font_size=20, font_weight="bold")
+        )
+        subtitle_label = toga.Label(
+            "Local AI • Vision • Voice • Text",
+            style=Pack(padding=(0, 10, 10, 10), font_size=11)
+        )
+
+        # --- Chat history ---
+        self.chat_history = toga.MultilineTextInput(
+            readonly=True,
+            style=Pack(flex=1, padding=10, font_size=13)
+        )
+        self.chat_history.value = "AI Glasses is ready. How can I help you today?\n"
+
+        # --- Status label ---
         self.status_label = toga.Label(
-            "👓 AI Glasses - Initializing...", 
-            style=Pack(text_align=CENTER, color="#FFFFFF", padding=10, font_weight="bold")
+            "⏳ Loading Gemma 4 E2B model...",
+            style=Pack(padding=(5, 10), font_size=11)
         )
 
-        # منطقة عرض الرسائل
-        self.chat_box = toga.Box(style=Pack(direction=COLUMN, padding=5))
-        scroll_container = toga.ScrollContainer(content=self.chat_box, style=Pack(flex=1))
-
-        # شريط الإدخال والأزرار السفلي
-        self.text_input = toga.TextInput(placeholder="Type a message...", style=Pack(flex=1, padding=5))
-        self.btn_send = toga.Button("Send", on_press=self.on_send_click, style=Pack(padding=5))
-        
-        controls_box = toga.Box(
-            children=[self.text_input, self.btn_send], 
-            style=Pack(direction=ROW, padding=5)
+        # --- Hardware buttons (Camera & Mic) ---
+        self.camera_button = toga.Button(
+            "📷  Camera",
+            on_press=self.take_photo,
+            style=Pack(flex=1, padding=5)
         )
+        self.mic_button = toga.Button(
+            "🎤  Microphone",
+            on_press=self.record_audio,
+            style=Pack(flex=1, padding=5)
+        )
+        hardware_box = toga.Box(style=Pack(direction=ROW, padding=(5, 10)))
+        hardware_box.add(self.camera_button)
+        hardware_box.add(self.mic_button)
 
-        # تجميع المكونات
-        main_box.add(self.status_label, scroll_container, controls_box)
+        # --- Text input & send ---
+        self.input_field = toga.TextInput(
+            placeholder="Type your message here...",
+            style=Pack(flex=1, padding=(0, 5))
+        )
+        self.send_button = toga.Button(
+            "Send  ➤",
+            on_press=self.handle_send,
+            style=Pack(padding=(0, 5))
+        )
+        input_box = toga.Box(style=Pack(direction=ROW, padding=10))
+        input_box.add(self.input_field)
+        input_box.add(self.send_button)
 
-        # عرض النافذة الرئيسية فوراً
-        self.main_window = toga.MainWindow(title=self.formal_name)
+        # --- Main layout ---
+        main_box = toga.Box(style=Pack(direction=COLUMN))
+        main_box.add(header_label)
+        main_box.add(subtitle_label)
+        main_box.add(self.status_label)
+        main_box.add(hardware_box)
+        main_box.add(self.chat_history)
+        main_box.add(input_box)
+
         self.main_window.content = main_box
         self.main_window.show()
 
-        # 2. تشغيل استدعاء المكتبات الثقيلة في مسار خلفي
-        threading.Thread(target=self.init_ai_engine, daemon=True).start()
+        # --- Initialize AI model ---
+        self.model_handler = ModelHandler()
+        self.add_background_task(self.init_model)
 
-    def init_ai_engine(self):
-        """فحص وتحميل محرك الذكاء الاصطناعي بأمان"""
+    async def init_model(self, app, **kwargs):
+        success, message = await asyncio.to_thread(self.model_handler.load_model)
+        if success:
+            self.status_label.text = "✅ Model ready — Ask me anything!"
+        else:
+            self.status_label.text = f"❌ {message}"
+
+    async def take_photo(self, widget, **kwargs):
+        self.chat_history.value += "\nYou: [Photo captured]\n"
+        self.status_label.text = "🔍 Analyzing image..."
+        self.camera_button.enabled = False
         try:
-            # استدعاء أمن دون إيقاف الواجهة
-            import llama_cpp
-            self.status_label.text = "🟢 Local AI Ready"
-            self.add_message("System", "AI Engine initialized successfully.")
-        except Exception as e:
-            # في حال عدم وجود المكتبة على iOS تظهر الرسالة داخل التطبيق بدلاً من انهياره
-            self.status_label.text = "⚠️ Mode: UI Preview"
-            self.add_message("System", f"AI Engine Notice: {str(e)}")
+            image = await self.camera.take_photo()
+            if image:
+                dummy_path = "captured_image.jpg"
+                response = await asyncio.to_thread(
+                    self.model_handler.generate_vision_response, dummy_path
+                )
+                self.chat_history.value += f"AI: {response}\n"
+        except NotImplementedError:
+            self.chat_history.value += "AI: Camera is not supported on this platform.\n"
+        finally:
+            self.status_label.text = "✅ Model ready — Ask me anything!"
+            self.camera_button.enabled = True
 
-    def on_send_click(self, widget):
-        text = self.text_input.value
-        if text:
-            self.add_message("User", text)
-            self.text_input.value = ""
+    async def record_audio(self, widget, **kwargs):
+        self.chat_history.value += "\nYou: [Voice message recorded]\n"
+        self.status_label.text = "🎙️ Processing audio..."
+        self.mic_button.enabled = False
+        response = await asyncio.to_thread(
+            self.model_handler.generate_audio_response, "audio_input"
+        )
+        self.chat_history.value += f"AI: {response}\n"
+        self.status_label.text = "✅ Model ready — Ask me anything!"
+        self.mic_button.enabled = True
 
-    def add_message(self, sender, text):
-        msg_label = toga.Label(f"{sender}: {text}", style=Pack(padding=4, color="#FFFFFF"))
-        self.chat_box.add(msg_label)
+    async def handle_send(self, widget, **kwargs):
+        user_text = self.input_field.value.strip()
+        if not user_text:
+            return
+
+        self.input_field.value = ""
+        self.chat_history.value += f"\nYou: {user_text}\n"
+
+        if not self.model_handler.is_loaded:
+            self.chat_history.value += "AI: Model is still loading. Please wait...\n"
+            return
+
+        self.status_label.text = "🤔 Thinking..."
+        self.send_button.enabled = False
+
+        response = await asyncio.to_thread(
+            self.model_handler.generate_response, user_text
+        )
+
+        self.chat_history.value += f"AI: {response}\n"
+        self.status_label.text = "✅ Model ready — Ask me anything!"
+        self.send_button.enabled = True
+
 
 def main():
-    return AIGlassesApp()
-3️⃣ خطوات إعادة البناء والتجربة
-ارفع التعديلات إلى مستودع GitHub الخاص بك عبر git commit و git push.
-
-انتظر انتهاء مجريات GitHub Actions وافصل ملف الـ Artifact الجديد (AI-Glasses-iOS-App).
-
-حوّل المجلد الناتج إلى ملف .ipa بنفس الطريقة عن طريق مجلد Payload.
-
-وقّع الملف بواسطة أداة 3uTools وثبّته على الآيفون.
-
-بهذا التحديث، سيفتح التطبيق على شاشة هاتفك بصورة فورية ومستقرة تماماً.import toga
-from toga.style import Pack
-from toga.style.pack import COLUMN, ROW, CENTER
-import threading
-
-class AIGlassesApp(toga.App):
-    def startup(self):
-        # 1. بناء واجهة المستخدم فوراً لمنع النظام من إنهاء التطبيق
-        main_box = toga.Box(style=Pack(direction=COLUMN, padding=12, background_color="#121212"))
-
-        # الشريط العلوي للحالة
-        self.status_label = toga.Label(
-            "👓 AI Glasses - Initializing...", 
-            style=Pack(text_align=CENTER, color="#FFFFFF", padding=10, font_weight="bold")
-        )
-
-        # منطقة عرض الرسائل
-        self.chat_box = toga.Box(style=Pack(direction=COLUMN, padding=5))
-        scroll_container = toga.ScrollContainer(content=self.chat_box, style=Pack(flex=1))
-
-        # شريط الإدخال والأزرار السفلي
-        self.text_input = toga.TextInput(placeholder="Type a message...", style=Pack(flex=1, padding=5))
-        self.btn_send = toga.Button("Send", on_press=self.on_send_click, style=Pack(padding=5))
-        
-        controls_box = toga.Box(
-            children=[self.text_input, self.btn_send], 
-            style=Pack(direction=ROW, padding=5)
-        )
-
-        # تجميع المكونات
-        main_box.add(self.status_label, scroll_container, controls_box)
-
-        # عرض النافذة الرئيسية فوراً
-        self.main_window = toga.MainWindow(title=self.formal_name)
-        self.main_window.content = main_box
-        self.main_window.show()
-
-        # 2. تشغيل استدعاء المكتبات الثقيلة في مسار خلفي
-        threading.Thread(target=self.init_ai_engine, daemon=True).start()
-
-    def init_ai_engine(self):
-        """فحص وتحميل محرك الذكاء الاصطناعي بأمان"""
-        try:
-            # استدعاء أمن دون إيقاف الواجهة
-            import llama_cpp
-            self.status_label.text = "🟢 Local AI Ready"
-            self.add_message("System", "AI Engine initialized successfully.")
-        except Exception as e:
-            # في حال عدم وجود المكتبة على iOS تظهر الرسالة داخل التطبيق بدلاً من انهياره
-            self.status_label.text = "⚠️ Mode: UI Preview"
-            self.add_message("System", f"AI Engine Notice: {str(e)}")
-
-    def on_send_click(self, widget):
-        text = self.text_input.value
-        if text:
-            self.add_message("User", text)
-            self.text_input.value = ""
-
-    def add_message(self, sender, text):
-        msg_label = toga.Label(f"{sender}: {text}", style=Pack(padding=4, color="#FFFFFF"))
-        self.chat_box.add(msg_label)
-
-def main():
-    return AIGlassesApp()
-3️⃣ خطوات إعادة البناء والتجربة
-ارفع التعديلات إلى مستودع GitHub الخاص بك عبر git commit و git push.
-
-انتظر انتهاء مجريات GitHub Actions وافصل ملف الـ Artifact الجديد (AI-Glasses-iOS-App).
-
-حوّل المجلد الناتج إلى ملف .ipa بنفس الطريقة عن طريق مجلد Payload.
-
-وقّع الملف بواسطة أداة 3uTools وثبّته على الآيفون.
-
-بهذا التحديث، سيفتح التطبيق على شاشة هاتفك بصورة فورية ومستقرة تماماً.import toga
-from toga.style import Pack
-from toga.style.pack import COLUMN, ROW, CENTER
-import threading
-
-class AIGlassesApp(toga.App):
-    def startup(self):
-        # 1. بناء واجهة المستخدم فوراً لمنع النظام من إنهاء التطبيق
-        main_box = toga.Box(style=Pack(direction=COLUMN, padding=12, background_color="#121212"))
-
-        # الشريط العلوي للحالة
-        self.status_label = toga.Label(
-            "👓 AI Glasses - Initializing...", 
-            style=Pack(text_align=CENTER, color="#FFFFFF", padding=10, font_weight="bold")
-        )
-
-        # منطقة عرض الرسائل
-        self.chat_box = toga.Box(style=Pack(direction=COLUMN, padding=5))
-        scroll_container = toga.ScrollContainer(content=self.chat_box, style=Pack(flex=1))
-
-        # شريط الإدخال والأزرار السفلي
-        self.text_input = toga.TextInput(placeholder="Type a message...", style=Pack(flex=1, padding=5))
-        self.btn_send = toga.Button("Send", on_press=self.on_send_click, style=Pack(padding=5))
-        
-        controls_box = toga.Box(
-            children=[self.text_input, self.btn_send], 
-            style=Pack(direction=ROW, padding=5)
-        )
-
-        # تجميع المكونات
-        main_box.add(self.status_label, scroll_container, controls_box)
-
-        # عرض النافذة الرئيسية فوراً
-        self.main_window = toga.MainWindow(title=self.formal_name)
-        self.main_window.content = main_box
-        self.main_window.show()
-
-        # 2. تشغيل استدعاء المكتبات الثقيلة في مسار خلفي
-        threading.Thread(target=self.init_ai_engine, daemon=True).start()
-
-    def init_ai_engine(self):
-        """فحص وتحميل محرك الذكاء الاصطناعي بأمان"""
-        try:
-            # استدعاء أمن دون إيقاف الواجهة
-            import llama_cpp
-            self.status_label.text = "🟢 Local AI Ready"
-            self.add_message("System", "AI Engine initialized successfully.")
-        except Exception as e:
-            # في حال عدم وجود المكتبة على iOS تظهر الرسالة داخل التطبيق بدلاً من انهياره
-            self.status_label.text = "⚠️ Mode: UI Preview"
-            self.add_message("System", f"AI Engine Notice: {str(e)}")
-
-    def on_send_click(self, widget):
-        text = self.text_input.value
-        if text:
-            self.add_message("User", text)
-            self.text_input.value = ""
-
-    def add_message(self, sender, text):
-        msg_label = toga.Label(f"{sender}: {text}", style=Pack(padding=4, color="#FFFFFF"))
-        self.chat_box.add(msg_label)
-
-def main():
-    return AIGlassesApp()
-
-
-
+    return AIGlasses()
