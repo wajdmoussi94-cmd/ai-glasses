@@ -26,9 +26,9 @@ jobs:
           python -m py_compile src/ai_glasses/model_handler.py
           echo "✅ Syntax check passed!"
 
-  # ===== Step 2: Build iOS App =====
+  # ===== Step 2: Build Real iPhone IPA File (iphoneos ARM64 SDK) =====
   build-ios:
-    name: Build for iPhone (iOS)
+    name: Build Ready-to-Install iPhone IPA
     runs-on: macos-14
     needs: test-code
 
@@ -49,15 +49,28 @@ jobs:
       - name: Accept Xcode License
         run: sudo xcodebuild -license accept
 
-      - name: Create iOS Project (with Pillow for custom icon generation)
+      - name: Create iOS Xcode Project
         run: briefcase create iOS
 
-      - name: Build iOS App
-        run: briefcase build iOS
+      - name: Compile for Physical iPhone Device (xcodebuild -sdk iphoneos)
+        run: |
+          xcodebuild -project "build/ai_glasses/ios/xcode/AI Glasses.xcodeproj" \
+            -scheme "AI Glasses" \
+            -sdk iphoneos \
+            -configuration Release \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            clean build
 
-      - name: Upload iOS Build
+      - name: Package directly into ready-to-use AIGlasses.ipa
+        run: |
+          mkdir -p build_ipa/Payload
+          cp -R "build/ai_glasses/ios/xcode/build/Release-iphoneos/AI Glasses.app" build_ipa/Payload/
+          cd build_ipa && zip -r AIGlasses.ipa Payload
+
+      - name: Upload Ready AIGlasses.ipa Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: AI-Glasses-iOS-App
-          path: build/
+          name: AI-Glasses-IPA-Ready
+          path: build_ipa/AIGlasses.ipa
           retention-days: 14
