@@ -1,416 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI Glasses Engine</title>
-
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="AI Glasses">
-    <link rel="apple-touch-icon" href="icon.png">
-    <link rel="manifest" href="manifest.json">
-
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Cairo:wght@600;700&display=swap" rel="stylesheet">
-
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-        body {
-            background: #070a12;
-            color: #fff;
-            font-family: 'Outfit', 'Cairo', sans-serif;
-            height: 100vh;
-            height: -webkit-fill-available;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        /* ===== START OVERLAY ===== */
-        #overlay {
-            position: fixed; inset: 0; z-index: 9999;
-            background: #070a12;
-            display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
-            padding: 30px; text-align: center;
-        }
-        #overlay .logo {
-            width: 90px; height: 90px; border-radius: 20px;
-            background: linear-gradient(135deg, #00f0ff, #7a00ff);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 42px; margin-bottom: 24px;
-            box-shadow: 0 0 40px rgba(0,240,255,0.4);
-        }
-        #overlay h1 {
-            font-size: 24px; font-weight: 800;
-            background: linear-gradient(135deg, #00f0ff, #7a00ff);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
-        }
-        #overlay p {
-            font-size: 14px; color: #94a3b8;
-            max-width: 300px; line-height: 1.7; margin-bottom: 36px;
-        }
-        #start-btn {
-            width: 100%; max-width: 320px; padding: 22px;
-            border: none; border-radius: 22px;
-            background: linear-gradient(135deg, #00f0ff, #7a00ff);
-            color: #fff; font-size: 18px; font-weight: 800;
-            cursor: pointer; font-family: inherit;
-            box-shadow: 0 0 30px rgba(0,240,255,0.5);
-            transition: transform 0.15s;
-        }
-        #start-btn:active { transform: scale(0.96); }
-
-        /* ===== MAIN VIEW ===== */
-        #main { flex: 1; position: relative; display: none; }
-        video { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
-        canvas { display: none; }
-
-        /* TOP BAR */
-        .top-bar {
-            position: absolute; top: 0; left: 0; right: 0; z-index: 10;
-            padding: 50px 20px 14px;
-            background: linear-gradient(to bottom, rgba(7,10,18,0.95), transparent);
-            display: flex; align-items: center; gap: 12px;
-        }
-        .top-icon {
-            width: 36px; height: 36px; border-radius: 10px;
-            background: linear-gradient(135deg, #00f0ff, #7a00ff);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 18px; flex-shrink: 0;
-        }
-        .top-title { font-size: 15px; font-weight: 800; color: #00f0ff; }
-        .top-badge {
-            margin-left: auto; padding: 5px 12px; border-radius: 20px;
-            font-size: 11px; font-weight: 700;
-            display: flex; align-items: center; gap: 6px;
-            background: rgba(0,255,135,0.12); border: 1px solid #00ff87; color: #00ff87;
-        }
-        .top-badge.speaking {
-            background: rgba(0,240,255,0.12); border-color: #00f0ff; color: #00f0ff;
-        }
-        .dot {
-            width: 7px; height: 7px; border-radius: 50%;
-            background: #00ff87; box-shadow: 0 0 6px #00ff87;
-            animation: blink 1.2s infinite;
-        }
-        .dot.cyan { background: #00f0ff; box-shadow: 0 0 6px #00f0ff; }
-        @keyframes blink {
-            0%,100%{opacity:1;transform:scale(1)}
-            50%{opacity:0.3;transform:scale(1.4)}
-        }
-
-        /* RESPONSE CARD */
-        .resp-card {
-            position: absolute; bottom: 40px; left: 16px; right: 16px; z-index: 10;
-            background: rgba(15,23,42,0.95);
-            border: 1px solid rgba(0,240,255,0.3);
-            border-radius: 20px; padding: 18px;
-            display: flex; gap: 14px; align-items: flex-start;
-            backdrop-filter: blur(20px);
-            box-shadow: 0 8px 32px rgba(0,0,0,0.6);
-        }
-        .resp-emoji {
-            width: 48px; height: 48px; border-radius: 50%; flex-shrink: 0;
-            background: linear-gradient(135deg, #00f0ff, #7a00ff);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 22px;
-        }
-        .resp-content h3 { font-size: 13px; font-weight: 700; line-height: 1.5; margin-bottom: 4px; }
-        .resp-content p { font-size: 11px; color: #00f0ff; }
-
-        .hidden { display: none !important; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="AI Glasses">
+<title>AI Glasses</title>
+<style>
+html, body {
+  margin: 0; padding: 0;
+  background: #070a12;
+  color: white;
+  font-family: -apple-system, sans-serif;
+  min-height: 100%;
+  min-height: -webkit-fill-available;
+}
+#log {
+  padding: 20px;
+  font-size: 13px;
+  line-height: 1.8;
+}
+.ok  { color: #4ade80; }
+.err { color: #f87171; }
+.info{ color: #93c5fd; }
+button {
+  display: block;
+  width: calc(100% - 40px);
+  margin: 10px 20px;
+  padding: 18px;
+  background: #1e40af;
+  color: white;
+  border: none;
+  border-radius: 14px;
+  font-size: 16px;
+  font-family: inherit;
+  cursor: pointer;
+}
+</style>
 </head>
 <body>
-
-<!-- START OVERLAY -->
-<div id="overlay">
-    <div class="logo">👓</div>
-    <h1>AI Glasses Engine</h1>
-    <p>Assistive AI vision for visually impaired users.<br>
-    Tap once to activate — then speak freely in Arabic or English. No buttons needed.</p>
-    <button id="start-btn">🚀 ACTIVATE AI GLASSES</button>
-</div>
-
-<!-- MAIN SCREEN -->
-<div id="main">
-    <video id="cam" autoplay playsinline muted></video>
-    <canvas id="cvs"></canvas>
-
-    <div class="top-bar">
-        <div class="top-icon">👓</div>
-        <div class="top-title">AI Glasses Active</div>
-        <div class="top-badge" id="badge">
-            <div class="dot" id="dot"></div>
-            <span id="badge-text">Listening</span>
-        </div>
-    </div>
-
-    <div class="resp-card">
-        <div class="resp-emoji" id="resp-emoji">🎙️</div>
-        <div class="resp-content">
-            <h3 id="resp-title">Ready — speak at any time</h3>
-            <p id="resp-sub">Always listening in Arabic & English</p>
-        </div>
-    </div>
-</div>
-
+<div id="log"><p class="info">⏳ Loading AI Glasses debug mode...</p></div>
+<button onclick="testSpeech()">🔊 Test Voice</button>
+<button onclick="testMic()">🎙️ Test Microphone</button>
+<button onclick="testCam()">📷 Test Camera</button>
 <script>
-try {
-    var overlay  = document.getElementById('overlay');
-    var mainView = document.getElementById('main');
-    var startBtn = document.getElementById('start-btn');
-    var cam      = document.getElementById('cam');
-    var cvs      = document.getElementById('cvs');
-    var ctx2d    = cvs.getContext('2d');
-    var badge    = document.getElementById('badge');
-    var dot      = document.getElementById('dot');
-    var badgeTxt = document.getElementById('badge-text');
-    var rEmoji   = document.getElementById('resp-emoji');
-    var rTitle   = document.getElementById('resp-title');
-    var rSub     = document.getElementById('resp-sub');
+function log(msg, cls) {
+  var d = document.getElementById('log');
+  var p = document.createElement('p');
+  p.className = cls || 'info';
+  p.textContent = new Date().toLocaleTimeString() + ' — ' + msg;
+  d.appendChild(p);
+}
 
-    var speaking   = false;
-    var listening  = false;
-    var recRef     = null;
+window.onerror = function(msg, src, line) {
+  log('JS ERROR: ' + msg + ' (line ' + line + ')', 'err');
+};
 
-    // ── AUDIO UNLOCK (iOS Safari must be inside user gesture) ──
-    function unlockAudio() {
-        try {
-            var ac = new (window.AudioContext || window.webkitAudioContext)();
-            var buf = ac.createBuffer(1,1,22050);
-            var src = ac.createBufferSource();
-            src.buffer = buf; src.connect(ac.destination); src.start(0);
-            ac.resume();
-        } catch(e) {}
-        try {
-            var u = new SpeechSynthesisUtterance(' ');
-            u.volume = 0; u.rate = 2;
-            window.speechSynthesis.speak(u);
-        } catch(e) {}
-    }
+log('Page loaded OK', 'ok');
+log('iOS: ' + navigator.userAgent.includes('iPhone'), 'info');
+log('Safari standalone: ' + window.navigator.standalone, 'info');
+log('Speech synth: ' + ('speechSynthesis' in window), 'info');
+log('Speech recog: ' + (!!(window.SpeechRecognition || window.webkitSpeechRecognition)), 'info');
+log('MediaDevices: ' + (!!navigator.mediaDevices), 'info');
+log('HTTPS: ' + (location.protocol === 'https:'), 'info');
 
-    // ── UI HELPERS ──
-    function setListeningUI() {
-        badge.className = 'top-badge';
-        dot.className = 'dot';
-        badgeTxt.textContent = 'Listening';
-        rEmoji.textContent = '🎙️';
-    }
-    function setSpeakingUI() {
-        badge.className = 'top-badge speaking';
-        dot.className = 'dot cyan';
-        badgeTxt.textContent = 'Speaking';
-        rEmoji.textContent = '🔊';
-    }
-    function showCard(title, sub) {
-        rTitle.textContent = title;
-        rSub.textContent = sub || '';
-    }
+function testSpeech() {
+  try {
+    window.speechSynthesis.cancel();
+    var u = new SpeechSynthesisUtterance('AI Glasses voice test successful. The audio system is working correctly.');
+    u.lang = 'en-US';
+    u.volume = 1;
+    u.onstart = function(){ log('Speech STARTED', 'ok'); };
+    u.onend   = function(){ log('Speech ENDED OK', 'ok'); };
+    u.onerror = function(e){ log('Speech ERROR: ' + e.error, 'err'); };
+    window.speechSynthesis.speak(u);
+    log('speechSynthesis.speak() called', 'info');
+  } catch(e) { log('Speech EXCEPTION: ' + e.message, 'err'); }
+}
 
-    // ── SPEAK ──
-    function speak(text, done) {
-        if (!window.speechSynthesis) { if(done) done(); return; }
-        window.speechSynthesis.cancel();
-        speaking = true;
-        setSpeakingUI();
-        showCard(text, 'AI responding...');
+function testMic() {
+  try {
+    navigator.mediaDevices.getUserMedia({audio: true, video: false})
+    .then(function(s) {
+      log('Microphone ACCESS GRANTED', 'ok');
+      s.getTracks().forEach(function(t){ t.stop(); });
 
-        var u = new SpeechSynthesisUtterance(text);
-        u.lang   = /[\u0600-\u06FF]/.test(text) ? 'ar-SA' : 'en-US';
-        u.rate   = 1.0;
-        u.volume = 1.0;
+      var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SR) { log('SpeechRecognition API not available', 'err'); return; }
+      var r = new SR();
+      r.onstart  = function(){ log('Recognition STARTED — speak now', 'ok'); };
+      r.onresult = function(e){ log('Heard: ' + e.results[0][0].transcript, 'ok'); };
+      r.onerror  = function(e){ log('Recognition ERROR: ' + e.error, 'err'); };
+      r.onend    = function(){ log('Recognition ENDED', 'info'); };
+      r.start();
+    })
+    .catch(function(e){ log('Mic DENIED: ' + e.message, 'err'); });
+  } catch(e) { log('Mic EXCEPTION: ' + e.message, 'err'); }
+}
 
-        u.onend = u.onerror = function() {
-            speaking = false;
-            setListeningUI();
-            if (done) done();
-        };
-
-        // iOS 16+ bugfix: kick speechSynthesis if stuck
-        setTimeout(function() {
-            if (window.speechSynthesis.paused) window.speechSynthesis.resume();
-        }, 100);
-
-        window.speechSynthesis.speak(u);
-    }
-
-    // ── CAMERA ──
-    function startCamera() {
-        if (!navigator.mediaDevices) return;
-        navigator.mediaDevices.getUserMedia({ video: { facingMode: {ideal:'environment'} }, audio: false })
-        .then(function(s) { cam.srcObject = s; })
-        .catch(function() {
-            navigator.mediaDevices.getUserMedia({ video: true, audio: false })
-            .then(function(s) { cam.srcObject = s; }).catch(function(){});
-        });
-    }
-
-    // ── VISION ANALYSIS ──
-    function analyzeScene(isAr) {
-        showCard('Scanning surroundings...', 'Vision processing');
-        setTimeout(function() {
-            var brightness = 128;
-            try {
-                if (cam.videoWidth > 0) {
-                    cvs.width = cam.videoWidth; cvs.height = cam.videoHeight;
-                    ctx2d.drawImage(cam, 0, 0);
-                    var px = ctx2d.getImageData(0, 0, cvs.width, cvs.height).data;
-                    var s = 0;
-                    for (var i = 0; i < px.length; i += 40) s += (px[i]+px[i+1]+px[i+2])/3;
-                    brightness = s / (px.length / 40);
-                }
-            } catch(e) {}
-
-            var msgs = [
-                ['Path ahead is clear. No obstacles detected. Safe to walk forward.',
-                 'الطريق أمامك سالك. لا توجد عوائق. آمن للمشي للأمام.'],
-                ['I see a chair two meters ahead on your right. Left side is clear.',
-                 'أرى كرسياً على بُعد مترين على يمينك. الجهة اليسرى سالكة.'],
-                ['Open doorway on your left. The walkway ahead is clear.',
-                 'باب مفتوح على يسارك. الممر أمامك خالٍ من العوائق.'],
-                ['Caution. Small object on the floor one meter ahead. Step carefully.',
-                 'انتبه. جسم صغير على الأرض على بُعد متر. امشِ بحذر.']
-            ];
-
-            var pick;
-            if (brightness < 40) {
-                pick = ['Area is very dark. Please move toward a lit area or turn on a light.',
-                        'المكان مظلم جداً. يرجى التحرك نحو مكان مضيء أو إضاءة النور.'];
-            } else if (brightness > 210) {
-                pick = ['Bright open area ahead. Path appears clear and safe.',
-                        'منطقة مفتوحة ومضاءة. الطريق يبدو سالكاً وآمناً.'];
-            } else {
-                pick = msgs[Math.floor(Math.random() * msgs.length)];
-            }
-
-            var reply = isAr ? pick[1] : pick[0];
-            speak(reply, function() { startListening(); });
-        }, 400);
-    }
-
-    // ── PROCESS COMMAND ──
-    function processCommand(text) {
-        var isAr = /[\u0600-\u06FF]/.test(text);
-        var lo   = text.toLowerCase();
-        showCard('"' + text + '"', 'Processing...');
-
-        var seeWords   = ['see','look','front','scan','obstacle','around','what','where','describe','ماذا','شوف','أمام','عائق','حولي','ترى','يوجد'];
-        var greetWords = ['hello','hi','hey','مرحبا','سلام','أهلا','السلام'];
-        var helpWords  = ['help','مساعدة','ساعد','كيف'];
-        var readWords  = ['read','text','sign','اقرأ','نص','لافتة'];
-
-        function matchAny(words) {
-            return words.some(function(w){ return lo.includes(w) || text.includes(w); });
-        }
-
-        if (matchAny(seeWords)) {
-            analyzeScene(isAr);
-        } else if (matchAny(greetWords)) {
-            var g = isAr
-                ? 'أهلاً بك! أنا نظاراتك الذكية. قل لي ماذا ترى أمامي لأصف لك محيطك.'
-                : 'Hello! I am your AI Glasses assistant. Say what do you see and I will describe your surroundings.';
-            speak(g, function() { startListening(); });
-        } else if (matchAny(helpWords)) {
-            var h = isAr
-                ? 'يمكنك أن تقول: ماذا ترى أمامي؟ هل يوجد عائق؟ صف لي المكان. اقرأ النص. وسأجيبك فوراً.'
-                : 'You can say: what do you see, is there an obstacle, describe my surroundings, or read the text. I will answer immediately.';
-            speak(h, function() { startListening(); });
-        } else if (matchAny(readWords)) {
-            var r = isAr
-                ? 'جاري قراءة النص المرئي أمامك. لم أتمكن من رؤية نص واضح في هذه اللحظة.'
-                : 'Scanning visible text. No clear text detected at this moment.';
-            speak(r, function() { startListening(); });
-        } else {
-            // Default: any other speech → scan surroundings
-            var d = isAr ? 'حسناً، دعني أفحص محيطك.' : 'Sure, let me scan your surroundings.';
-            speak(d, function() { analyzeScene(isAr); });
-        }
-    }
-
-    // ── CONTINUOUS LISTENING (auto-restart loop) ──
-    function startListening() {
-        if (speaking) return;
-        if (listening) return;
-
-        var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-        if (!SR) {
-            // No speech recognition — auto-scan every 8 seconds
-            showCard('Auto-scan mode active', 'No speech recognition — scanning every 8s');
-            setInterval(function() { if (!speaking) analyzeScene(false); }, 8000);
-            return;
-        }
-
-        listening = true;
-        setListeningUI();
-        showCard('Ready — speak at any time', 'Arabic & English supported');
-
-        var rec = new SR();
-        rec.continuous      = false;
-        rec.interimResults  = false;
-        rec.maxAlternatives = 1;
-        // No language set — browser auto-detects Arabic or English
-
-        rec.onresult = function(ev) {
-            listening = false;
-            var t = ev.results[0][0].transcript.trim();
-            if (t) processCommand(t);
-        };
-
-        rec.onerror = function() {
-            listening = false;
-            setTimeout(startListening, 500);
-        };
-
-        rec.onend = function() {
-            listening = false;
-            if (!speaking) setTimeout(startListening, 300);
-        };
-
-        try { rec.start(); } catch(e) {
-            listening = false;
-            setTimeout(startListening, 600);
-        }
-
-        recRef = rec;
-    }
-
-    // ── ACTIVATE ──
-    startBtn.addEventListener('click', function() {
-        unlockAudio();
-        overlay.style.display = 'none';
-        mainView.style.display = 'block';
-        startCamera();
-
-        setTimeout(function() {
-            speak(
-                'AI Glasses activated. I am now always listening. ' +
-                'Say: what do you see — and I will describe your surroundings. ' +
-                'Say: help — for all available commands. ' +
-                'You can also speak Arabic. I understand both languages.',
-                function() { startListening(); }
-            );
-        }, 500);
-    });
-
-    // Tap anywhere on camera = instant scene scan
-    mainView.addEventListener('click', function() {
-        if (!speaking) {
-            window.speechSynthesis.cancel();
-            speaking = false;
-            if (recRef) { try { recRef.stop(); } catch(e){} }
-            listening = false;
-            analyzeScene(false);
-        }
-    });
-
-} catch(globalErr) {
-    document.body.innerHTML = '<div style="padding:30px;color:white;font-family:sans-serif;">' +
-        '<h2>AI Glasses</h2><p style="color:#f87171;margin-top:10px;">Error: ' +
-        globalErr.message + '</p>' +
-        '<p style="color:#94a3b8;margin-top:10px;">Please open in Safari on iPhone.</p></div>';
+function testCam() {
+  try {
+    navigator.mediaDevices.getUserMedia({video: true, audio: false})
+    .then(function(s){ log('Camera ACCESS GRANTED', 'ok'); s.getTracks().forEach(function(t){ t.stop(); }); })
+    .catch(function(e){ log('Camera DENIED: ' + e.message, 'err'); });
+  } catch(e) { log('Camera EXCEPTION: ' + e.message, 'err'); }
 }
 </script>
 </body>
