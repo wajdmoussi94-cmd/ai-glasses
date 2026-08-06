@@ -1,0 +1,244 @@
+Date/Time:       2026-08-04 10:18:35 
+Command line:    C:\Users\USER\develop\ai_glasses_python\venv_311\Scripts\briefcase dev
+
+OS Release:      Windows 10
+OS Version:      10.0.26200
+Architecture:    AMD64
+Platform:        Windows-10-10.0.26200-SP0
+
+Python exe:      C:\Users\USER\develop\ai_glasses_python\venv_311\Scripts\python.exe
+Python version:  3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+Virtual env:     True
+Conda env:       False
+
+Briefcase:       0.4.4
+Target platform: windows
+Target format:   app
+
+Environment Variables:
+	ALLUSERSPROFILE=C:\ProgramData
+	APPDATA=C:\Users\USER\AppData\Roaming
+	ASL.LOG=Destination=file
+	COMMONPROGRAMFILES=C:\Program Files\Common Files
+	COMMONPROGRAMFILES(X86)=C:\Program Files (x86)\Common Files
+	COMMONPROGRAMW6432=C:\Program Files\Common Files
+	COMPUTERNAME=DESKTOP-RBMNHEB
+	COMSPEC=C:\WINDOWS\system32\cmd.exe
+	DRIVERDATA=C:\Windows\System32\Drivers\DriverData
+	HOMEDRIVE=C:
+	HOMEPATH=\Users\USER
+	LOCALAPPDATA=C:\Users\USER\AppData\Local
+	LOGONSERVER=\\DESKTOP-RBMNHEB
+	NUMBER_OF_PROCESSORS=16
+	ONEDRIVE=C:\Users\USER\OneDrive
+	OS=Windows_NT
+	PATH=C:\Windows\System32;C:\Program Files\Git\cmd;C:\Users\USER\develop\flutter\bin;C:\Windows\System32\WindowsPowerShell\v1.0;;C:\Program Files\NVIDIA Corporation\NVIDIA App\NvDLISR;C:\Users\USER\AppData\Local\Programs\Python\Python311\Scripts\;C:\Users\USER\AppData\Local\Programs\Python\Python311\;C:\Users\USER\AppData\Local\Microsoft\WindowsApps;C:\Users\USER\AppData\Local\Python\bin;C:\intelFPGA\18.1\modelsim_ase\win32aloem;C:\Users\USER\AppData\Roaming\npm;C:\Users\USER\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\USER\AppData\Local\Programs\Ollama
+	PATHEXT=.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.CPL
+	PROCESSOR_ARCHITECTURE=AMD64
+	PROCESSOR_IDENTIFIER=AMD64 Family 25 Model 68 Stepping 1, AuthenticAMD
+	PROCESSOR_LEVEL=25
+	PROCESSOR_REVISION=4401
+	PROGRAMDATA=C:\ProgramData
+	PROGRAMFILES=C:\Program Files
+	PROGRAMFILES(X86)=C:\Program Files (x86)
+	PROGRAMW6432=C:\Program Files
+	PSMODULEPATH=C:\Users\USER\Documents\WindowsPowerShell\Modules;C:\Program Files\WindowsPowerShell\Modules;C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules
+	PT8HOME=C:\Program Files\Cisco Packet Tracer 8.2.2
+	PUBLIC=C:\Users\Public
+	SESSIONNAME=Console
+	SYSTEMDRIVE=C:
+	SYSTEMROOT=C:\WINDOWS
+	TEMP=C:\Users\USER\AppData\Local\Temp
+	TMP=C:\Users\USER\AppData\Local\Temp
+	USERDOMAIN=DESKTOP-RBMNHEB
+	USERDOMAIN_ROAMINGPROFILE=DESKTOP-RBMNHEB
+	USERNAME=USER
+	USERPROFILE=C:\Users\USER
+	VBOX_HWVIRTEX_IGNORE_SVM_IN_USE=1
+	VBOX_MSI_INSTALL_PATH=C:\Program Files\Oracle\VirtualBox\
+	WINDIR=C:\WINDOWS
+	WSLENV=WT_SESSION:WT_PROFILE_ID:
+	WT_PROFILE_ID={61c54bbd-c2c6-5271-96e7-009a87ff44bf}
+	WT_SESSION=c925f2ee-caa7-41c8-b431-7e7284224ebe
+
+pyproject.toml:
+[tool.briefcase]
+project_name = "AI Glasses"
+bundle = "com.example"
+version = "0.1.0"
+url = "https://example.com/ai_glasses"
+license = "MIT license"
+author = "User"
+author_email = "user@example.com"
+
+[tool.briefcase.app.ai_glasses]
+formal_name = "AI Glasses"
+description = "Smart Glasses Local AI App using Gemma"
+long_description = """A local AI application designed for iOS."""
+icon = "briefcase_icon"
+sources = ["src/ai_glasses"]
+test_sources = ["tests"]
+requires = [
+    "toga"
+]
+
+[tool.briefcase.app.ai_glasses.ios]
+requires = [
+    "toga-iOS"
+]
+supported = true
+
+Briefcase Log:
+[10:17:04]                                                                                                                                                            console.py:367
+           ********************************************************************************                                                                           console.py:367
+           **          WARNING: 'ai_glasses' uses pre-PEP 621 `license` format           **                                                                           console.py:367
+           ********************************************************************************                                                                           console.py:367
+                                                                                                                                                                      console.py:367
+             Briefcase now uses PEP 639 format for license definitions.                                                                                               console.py:367
+                                                                                                                                                                      console.py:367
+             PEP 639 requires the definition of both `license` and `license-files`, and                                                                               console.py:367
+             `license` must be a valid SPDX expression. The current value for `license`                                                                               console.py:367
+             seems to define a SPDX license of 'MIT'.                                                                                                                 console.py:367
+                                                                                                                                                                      console.py:367
+             Your project will not have a value for `license-files`. This will cause                                                                                  console.py:367
+             problems packaging for some platforms.                                                                                                                   console.py:367
+                                                                                                                                                                      console.py:367
+             Update your configuration to put the full license text in a file and use PEP                                                                             console.py:367
+             639 format for the license definition:                                                                                                                   console.py:367
+                                                                                                                                                                      console.py:367
+                 license = "MIT"                                                                                                                                      console.py:367
+                 license-files = ["LICENSE"]                                                                                                                          console.py:367
+                                                                                                                                                                      console.py:367
+             You should not release your project without resolving this warning.                                                                                      console.py:367
+                                                                                                                                                                      console.py:367
+           ********************************************************************************                                                                           console.py:367
+                                                                                                                                                                          dev.py:301
+           [ai_glasses] Activating dev environment...                                                                                                                     dev.py:301
+                                                                                                                                                                          dev.py:329
+           [ai_glasses] Starting in dev mode...                                                                                                                           dev.py:329
+                                                                                                                                                                   subprocess.py:844
+           >>> Running Command:                                                                                                                                    subprocess.py:844
+           >>>     'C:\Users\USER\develop\ai_glasses_python\.briefcase\ai_glasses\dev.cp311-win_amd64\Scripts\python.exe' -c 'import runpy,                        subprocess.py:844
+           sys;sys.path.pop(0);sys.argv.extend([]);runpy.run_module("ai_glasses", run_name="__main__", alter_sys=True)'                                                             
+           >>> Working Directory:                                                                                                                                  subprocess.py:844
+           >>>     C:\Users\USER                                                                                                                                   subprocess.py:844
+           >>> Environment Overrides:                                                                                                                              subprocess.py:844
+           >>>     PYTHONPATH=C:\Users\USER\develop\ai_glasses_python\src                                                                                          subprocess.py:844
+           >>>     PYTHONMALLOC=default                                                                                                                            subprocess.py:844
+           >>>     PYTHONUNBUFFERED=1                                                                                                                              subprocess.py:844
+           >>>     PYTHONDEVMODE=1                                                                                                                                 subprocess.py:844
+           >>>     PYTHONUTF8=1                                                                                                                                    subprocess.py:844
+           >>>     PATH=C:\Users\USER\develop\ai_glasses_python\.briefcase\ai_glasses\dev.cp311-win_amd64\Scripts;C:\Windows\System32;C:\Program                   subprocess.py:844
+           Files\Git\cmd;C:\Users\USER\develop\flutter\bin;C:\Windows\System32\WindowsPowerShell\v1.0;;C:\Program Files\NVIDIA Corporation\NVIDIA                                   
+           App\NvDLISR;C:\Users\USER\AppData\Local\Programs\Python\Python311\Scripts\;C:\Users\USER\AppData\Local\Programs\Python\Python311\;C:\Users\USER\AppData                  
+           \Local\Microsoft\WindowsApps;C:\Users\USER\AppData\Local\Python\bin;C:\intelFPGA\18.1\modelsim_ase\win32aloem;C:\Users\USER\AppData\Roaming\npm;C:\User                  
+           s\USER\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\USER\AppData\Local\Programs\Ollama                                                                          
+           >>>     VIRTUAL_ENV=C:\Users\USER\develop\ai_glasses_python\.briefcase\ai_glasses\dev.cp311-win_amd64                                                   subprocess.py:844
+           ===========================================================================                                                                                    run.py:175
+[10:17:07] <string>:31: DeprecationWarning: Pack.padding is deprecated. Use Pack.margin instead.                                                                   subprocess.py:196
+[10:18:34]                                                                                                                                                            __main__.py:42
+           Problem running app ai_glasses (return code 3489660927).                                                                                                   __main__.py:43
+           Saving log... started                                                                                                                                      console.py:566
+
+Main thread traceback:
+╭─────────────────────────────────────────────────────────────────────── Traceback (most recent call last) ────────────────────────────────────────────────────────────────────────╮
+│ C:\Users\USER\develop\ai_glasses_python\venv_311\Lib\site-packages\briefcase\__main__.py:27 in main                                                                              │
+│                                                                                                                                                                                  │
+│   24 │   │   │   Path.cwd() / "pyproject.toml",                                                                                                                                  │
+│   25 │   │   │   overrides=overrides,                                                                                                                                            │
+│   26 │   │   )                                                                                                                                                                   │
+│ ❱ 27 │   │   command(**options)                                                                                                                                                  │
+│   28 │   except HelpText as e:                                                                                                                                                   │
+│   29 │   │   console.info()                                                                                                                                                      │
+│   30 │   │   console.info(str(e))                                                                                                                                                │
+│                                                                                                                                                                                  │
+│ ╭───────────────────────────────────────────────────────────────── locals ──────────────────────────────────────────────────────────────────╮                                    │
+│ │       command = <briefcase.platforms.windows.app.WindowsAppDevCommand object at 0x000001C75D5E0AD0>                                       │                                    │
+│ │       console = <briefcase.console.Console object at 0x000001C759C95790>                                                                  │                                    │
+│ │             e = BriefcaseCommandError('Problem running app ai_glasses (return code 3489660927).')                                         │                                    │
+│ │ extra_cmdline = []                                                                                                                        │                                    │
+│ │       options = {'appname': None, 'update_requirements': False, 'isolated': True, 'run_app': True, 'test_mode': False, 'passthrough': []} │                                    │
+│ │     overrides = {}                                                                                                                        │                                    │
+│ │        result = 200                                                                                                                       │                                    │
+│ ╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯                                    │
+│                                                                                                                                                                                  │
+│ C:\Users\USER\develop\ai_glasses_python\venv_311\Lib\site-packages\briefcase\commands\dev.py:330 in __call__                                                                     │
+│                                                                                                                                                                                  │
+│   327 │   │   │   │   │   )                                                                                                                                                      │
+│   328 │   │   │   │   else:                                                                                                                                                      │
+│   329 │   │   │   │   │   self.console.info("Starting in dev mode...", prefix=app.app_name)                                                                                      │
+│ ❱ 330 │   │   │   │   return self.run_dev_app(                                                                                                                                   │
+│   331 │   │   │   │   │   app,                                                                                                                                                   │
+│   332 │   │   │   │   │   env=self.get_environment(app),                                                                                                                         │
+│   333 │   │   │   │   │   venv=venv,                                                                                                                                             │
+│                                                                                                                                                                                  │
+│ ╭──────────────────────────────────────────────────────────── locals ─────────────────────────────────────────────────────────────╮                                              │
+│ │                 app = <com.example.ai-glasses v0.1.0 FinalizedAppConfig>                                                        │                                              │
+│ │             appname = None                                                                                                      │                                              │
+│ │           finalized = {'ai_glasses': <com.example.ai-glasses v0.1.0 FinalizedAppConfig>}                                        │                                              │
+│ │            isolated = True                                                                                                      │                                              │
+│ │             options = {}                                                                                                        │                                              │
+│ │         passthrough = []                                                                                                        │                                              │
+│ │             run_app = True                                                                                                      │                                              │
+│ │                self = <briefcase.platforms.windows.app.WindowsAppDevCommand object at 0x000001C75D5E0AD0>                       │                                              │
+│ │           test_mode = False                                                                                                     │                                              │
+│ │ update_requirements = False                                                                                                     │                                              │
+│ │                venv = <briefcase.integrations.virtual_environment.std_venv.VenvVirtualEnvironment object at 0x000001C75D399410> │                                              │
+│ ╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯                                              │
+│                                                                                                                                                                                  │
+│ C:\Users\USER\develop\ai_glasses_python\venv_311\Lib\site-packages\briefcase\commands\dev.py:178 in run_dev_app                                                                  │
+│                                                                                                                                                                                  │
+│   175 │   │   │   )                                                                                                                                                              │
+│   176 │   │   │                                                                                                                                                                  │
+│   177 │   │   │   # Start streaming logs for the app.                                                                                                                            │
+│ ❱ 178 │   │   │   self._stream_app_logs(                                                                                                                                         │
+│   179 │   │   │   │   app,                                                                                                                                                       │
+│   180 │   │   │   │   popen=app_popen,                                                                                                                                           │
+│   181 │   │   │   │   clean_output=False,                                                                                                                                        │
+│                                                                                                                                                                                  │
+│ ╭──────────────────────────────────────────────────────── locals ─────────────────────────────────────────────────────────╮                                                      │
+│ │         app = <com.example.ai-glasses v0.1.0 FinalizedAppConfig>                                                        │                                                      │
+│ │   app_popen = <Popen: returncode: 3489660927 args: ['C:\\Users\\USER\\develop\\ai_glasses_...>                          │                                                      │
+│ │     cmdline = [                                                                                                         │                                                      │
+│ │               │   'C:\\Users\\USER\\develop\\ai_glasses_python\\venv_311\\Scripts\\python.exe',                         │                                                      │
+│ │               │   '-c',                                                                                                 │                                                      │
+│ │               │   'import runpy, sys;sys.path.pop(0);sys.argv.extend([]);runpy.run_module("ai_glass'+41                 │                                                      │
+│ │               ]                                                                                                         │                                                      │
+│ │         env = {                                                                                                         │                                                      │
+│ │               │   'PYTHONPATH': 'C:\\Users\\USER\\develop\\ai_glasses_python\\src',                                     │                                                      │
+│ │               │   'PYTHONMALLOC': 'default',                                                                            │                                                      │
+│ │               │   'PYTHONUNBUFFERED': '1',                                                                              │                                                      │
+│ │               │   'PYTHONDEVMODE': '1',                                                                                 │                                                      │
+│ │               │   'PYTHONUTF8': '1'                                                                                     │                                                      │
+│ │               }                                                                                                         │                                                      │
+│ │     env_key = 'PYTHONUTF8'                                                                                              │                                                      │
+│ │   env_value = '1'                                                                                                       │                                                      │
+│ │ main_module = 'ai_glasses'                                                                                              │                                                      │
+│ │     options = {}                                                                                                        │                                                      │
+│ │ passthrough = []                                                                                                        │                                                      │
+│ │        self = <briefcase.platforms.windows.app.WindowsAppDevCommand object at 0x000001C75D5E0AD0>                       │                                                      │
+│ │        venv = <briefcase.integrations.virtual_environment.std_venv.VenvVirtualEnvironment object at 0x000001C75D399410> │                                                      │
+│ ╰─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯                                                      │
+│                                                                                                                                                                                  │
+│ C:\Users\USER\develop\ai_glasses_python\venv_311\Lib\site-packages\briefcase\commands\run.py:212 in _stream_app_logs                                                             │
+│                                                                                                                                                                                  │
+│   209 │   │   │   │   # If we're monitoring an actual app (not just a log stream),                                                                                               │
+│   210 │   │   │   │   # and the app didn't exit cleanly, surface the error to the user.                                                                                          │
+│   211 │   │   │   │   if (status_code := popen.poll()) != 0:                                                                                                                     │
+│ ❱ 212 │   │   │   │   │   raise BriefcaseCommandError(                                                                                                                           │
+│   213 │   │   │   │   │   │   f"Problem running app {app.app_name} "                                                                                                             │
+│   214 │   │   │   │   │   │   f"(return code {status_code})."                                                                                                                    │
+│   215 │   │   │   │   │   )                                                                                                                                                      │
+│                                                                                                                                                                                  │
+│ ╭────────────────────────────────────────────── locals ──────────────────────────────────────────────╮                                                                           │
+│ │          app = <com.example.ai-glasses v0.1.0 FinalizedAppConfig>                                  │                                                                           │
+│ │ clean_filter = None                                                                                │                                                                           │
+│ │ clean_output = False                                                                               │                                                                           │
+│ │   log_filter = <briefcase.commands.run.LogFilter object at 0x000001C75D648D50>                     │                                                                           │
+│ │   log_stream = False                                                                               │                                                                           │
+│ │        popen = <Popen: returncode: 3489660927 args: ['C:\\Users\\USER\\develop\\ai_glasses_...>    │                                                                           │
+│ │         self = <briefcase.platforms.windows.app.WindowsAppDevCommand object at 0x000001C75D5E0AD0> │                                                                           │
+│ │  status_code = 3489660927                                                                          │                                                                           │
+│ ╰────────────────────────────────────────────────────────────────────────────────────────────────────╯                                                                           │
+╰──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+BriefcaseCommandError: Problem running app ai_glasses (return code 3489660927).

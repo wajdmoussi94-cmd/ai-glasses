@@ -1,0 +1,521 @@
+Date/Time:       2026-08-04 09:51:06 
+Command line:    C:\Users\USER\develop\ai_glasses_python\venv\Scripts\briefcase dev
+
+OS Release:      Windows 11
+OS Version:      10.0.26200
+Architecture:    AMD64
+Platform:        Windows-11-10.0.26200-SP0
+
+Python exe:      C:\Users\USER\develop\ai_glasses_python\venv\Scripts\python.exe
+Python version:  3.14.3 (tags/v3.14.3:323c59a, Feb  3 2026, 16:04:56) [MSC v.1944 64 bit (AMD64)]
+Virtual env:     True
+Conda env:       False
+
+Briefcase:       0.4.4
+Target platform: windows
+Target format:   app
+
+Environment Variables:
+	AGY_BROWSER_ACTIVE_PORT_FILE=C:\Users\USER\AppData\Roaming\Antigravity\DevToolsActivePort
+	AGY_BROWSER_WS_URL=ws://127.0.0.1:50530/devtools/browser/2e7b4cf8-956e-4b71-b1a1-75d9a0a4bbe1
+	ALLUSERSPROFILE=C:\ProgramData
+	ANTIGRAVITY_AGENT=1
+	ANTIGRAVITY_CONVERSATION_ID=19dd2eae-6869-4d67-aada-1c0cbc9f4191
+	ANTIGRAVITY_CSRF_TOKEN=********************
+	ANTIGRAVITY_LS_ADDRESS=localhost:50532
+	ANTIGRAVITY_PROJECT_ID=1c1751cb-d8f1-400f-a507-4766358ff801
+	ANTIGRAVITY_SOURCE_METADATA={"tool":{"conversationId":"19dd2eae-6869-4d67-aada-1c0cbc9f4191", "stepIndex":85, "toolCall":{"id":"eezxvrap", "name":"run_command", "argumentsJson":"{\"CommandLine\":\".\\\\venv\\\\Scripts\\\\briefcase dev\",\"Cwd\":\"c:\\\\Users\\\\USER\\\\develop\\\\ai_glasses_python\",\"WaitMsBeforeAsync\":5000,\"toolAction\":\"Running the app\",\"toolSummary\":\"Run briefcase dev\"}", "thinkingSignature":"EpkQCpYQARFNMg+zxZyGTdDnNqjW05iwahlUz+BFGEfcFsAdfOv2yY0RrVbsDmp8IzZRqFcMQAj7dOClko/eryUfs79JZjAotz14pRrXBtV9Z5lIQYbXV5pg4Hskj8fEbXpbUm2Caud/Y6nXXSzqi7f0kcZGBn90F3LQ7Gu2mKs8Sz013qNEl5hw7PwDayiFc4pn/IYxJvZbDvc4iV4QsI05tTuNafCVADmMZGz07IH1MJTCfzqj9L0YFWGDHJjX7OKG3YgR2oUWJaIxBAkpK4NvwmExUgLcm/kxfS9i74K2tWTo+NwpFwGCtSqKl7JcVBr1ue968aEz0Ld+DW5wN0WHDGVKIfu2BvUyGWJZTCT68y4L92zDycPZDd3UEd9t5oeypSDe61AjblaYghtPPTI3oMK1fhkRXn22zFA2LFFEtdPs5c0jULIWLGq/YaiPJqHnArchVmPwEoitTuVy841atcD2isIYCUXmuS6+HmoD/38VVV9x6zIO6FKSybVBAsKgIwrB57Jkals4Mau97L94FP8mBs9SfHuRU+VsY7sPmVuaaokGKzHpGzqoNwtr0qumtteO67J8h6fM2rKJVEphLaGfvkK9NYdJguNDaInFrFnAb9RwJnSPVTV1LQsH5fRGA8+ZQqTFcK8X1r8aHMnce53lRACo4JY9uBGvCtfjdOjhgqivyD+s1m9WkMmeCDDZzt3Um0ki6zRmdESKzEXnGfsICOho1du6elo9fO7Kwsxup0rwediT1QMFNcVfdeI3Fglh3eLavUzkGnVHNSQExYNL+SE6rJMkEP8JJ0l4QdPC4ReCEgOFO5bWeWrZusB+2I6ibHNzYiwOYCX1RypZh5YwC5gOBkW4WwWpsdGOB7UoEhMOv+RGQy5xaRHWMw+n4y8k7UrbsO9dFpiG7rVhf7SkGBhT9QH6qKv5lstSkPh4HvFxmVESrGWZUhKypnrtZULMU784mv662ejE8ORo/X8pb3T2QbzjDbKUbDsXxAV4kLcdud4so8HMhl1MyyUpWhtTk0MztsWIpsMnKSLCTuxQrrSRR+wCNKAfayW9AMiyaNeooq2aAXcJJejMB27t2qjiEcG5RU0+FCsgVzGsdCsH+6O6tz+ulPtuWR5oiPwc+YMYcCfan6Yo7GFvtbSxssVcq+Qfv50maccdjR9E+kU9+WsGldDKaXHMreypW73n1nz9++OryXq0KjCLppdLh2h6pNCvt5KSXhSiK0BbkbcGgSa5R4UGHRUoXnYTw+QOBQ8hQStaf9qp06s+YXLM2qH1/oPyC/wcqmfNc9yQzX8MQIu4OImQtBx3dnAHBqPqI6eWGvA6mFsRpgM1M/EYoDAZCm5g6zBGbxkY6+rp0PrVezUSgs0zFGpR/PKfK6NgdGiB+T/NV8c5xiE5vhPWZ9zcBlQ9b0gX3S2YpS0VURjLitr3d/EpdHqa4uUXq5ydUx0tnXKPvOqyCMyFn/S9zdwUzK9xD86LznHn55SCbLtqV7/aA9HqL6kPY1s0R3wr8iVq8w9NGZVJbuYxMDKnn+1NvRJd4+UEsjnHTFw4m1WCkjnzUuW6seU/97nH6b4iEUQ3a+1+Y0yrHxqiaSsEz2gKkLi6BI/8lG11fvajUrWMm6Nr64YTXXeuNFhQN8dqJg5b/8FHRY+WmO21pRD50edy8TMMA8SP2MnXge+oMhXlW5oZHmhbHtN6pAne1ilMg4k48ZCay19C8SD0onxp1bNibIdqLlqocfCXj1img9+lfANJMaLeJddY5XAKunBTjeH1xTKjmEEX5g+PpKibXCCnLEwqPPoFuTA9L95cmCkHCu/Xa+tiwJFq1xsFlZ07r92drAfmAp+7kk/pnlxrvGrfiHdkJurVlNIGTl6XRUzwKQ2w1v+7zk8zgpmYtYqvXx9gFIMcV1JxZj8Ni/fNP9QibC8CnaGj6CnSsBa0jB8W7I3BoI+eYjlDW1o0f/dCLzaMKQZuPrM59Pgf2aoUcraZOpB42cLtLbxjgt9+66oAJ1P/jkjQs3sdnxtcakmvpJ4SJk3UYzL079YgOqa39bgukSVHGSjRIfiSMR0QeScIzvrXbLk5tpXHvRMtb4/fQQkCTdXXLnv69EZt1xRA9D3QFncpI+lou/lI8Plc+FpdOTkKaWUiw04lQWn2x0BzqS54JpZ5G2TkISwNoWfLTXBn3cjxRvJWZZQ0JV+CLNDc4pRV6KN97Ov4/g24QeB3ed3f1t1iTTeA6gowJ9l1+6BQPyzJTY/9ayrJ1SvE28a+0vXwAiscxmGXkC37ofSgsc8uhp7ENjz7ire9jVWjIuZ7jrTETwDkixqXBA/Dnurj4dWkN22RiBCBbKdQGNYJvLhSOEPXyHMzcpCq4WJprigqxhtxDxZqq2pi1Kuxx1G1I2GHjJV2xeK+jKSpx0yIOUIQ5BRmArskeQnhOQfGWK/wKdHdmPS3i8nGTJRtxPLT0TJ/W9zEfDYBRsGN64l4toBk++yLBGBs05jDw60hh//elvlAOUOOMCIxaYpQc+C4K6CcfDBJtko9Wj9Q0t4ARIKShcu34dbJPS0PHJ1MBaxnDlrHvmRVQT4F0sCdkD+8j4KFbj5iDr9iVHfphZq81GhyFkw9HyElk8GyVoHHLvWnYPxH3nvcvOSNGs6fwbkcXxXdPZva823UwvW7wyPK89yKeRm5ZWuqbLDRnaiuXfpJb3U981kJeMLZke0nXHY1F0dUR3JH/2bagSzH4T7sQjiv4iFeqx/QI/BKIxMgmIOPGecLOb/a", "originalName":"run_command"}}}
+	ANTIGRAVITY_TRAJECTORY_ID=8c2f2977-1cb9-47f7-8060-d0ceaec735a3
+	APPDATA=C:\Users\USER\AppData\Roaming
+	ASL.LOG=Destination=file
+	CHROME_DEVTOOLS_MCP_JS=C:\Users\USER\AppData\Local\Programs\antigravity\resources\app.asar.unpacked\node_modules\chrome-devtools-mcp\build\src\bin\chrome-devtools-mcp.js
+	COMMONPROGRAMFILES=C:\Program Files\Common Files
+	COMMONPROGRAMFILES(X86)=C:\Program Files (x86)\Common Files
+	COMMONPROGRAMW6432=C:\Program Files\Common Files
+	COMPUTERNAME=DESKTOP-RBMNHEB
+	COMSPEC=C:\WINDOWS\system32\cmd.exe
+	DRIVERDATA=C:\Windows\System32\Drivers\DriverData
+	EFC_34312_1262719628=1
+	EFC_34312_1592913036=1
+	EFC_34312_2283032206=1
+	EFC_34312_2775293581=1
+	EFC_34312_3789132940=1
+	EFC_34312_4126798990=1
+	FPS_BROWSER_APP_PROFILE_STRING=Internet Explorer
+	FPS_BROWSER_USER_PROFILE_STRING=Default
+	HOMEDRIVE=C:
+	HOMEPATH=\Users\USER
+	LOCALAPPDATA=C:\Users\USER\AppData\Local
+	LOGONSERVER=\\DESKTOP-RBMNHEB
+	NUMBER_OF_PROCESSORS=16
+	ONEDRIVE=C:\Users\USER\OneDrive
+	OS=Windows_NT
+	PATH=C:/Users/USER/.gemini/antigravity/bin;C:\Users\USER\AppData\Roaming\Antigravity\bin;C:\Windows\System32;C:\Program Files\Git\cmd;C:\Users\USER\develop\flutter\bin;C:\Windows\System32\WindowsPowerShell\v1.0;;C:\Program Files\NVIDIA Corporation\NVIDIA App\NvDLISR;C:\Users\USER\AppData\Local\Microsoft\WindowsApps;C:\Users\USER\AppData\Local\Python\bin;C:\intelFPGA\18.1\modelsim_ase\win32aloem;C:\Users\USER\AppData\Roaming\npm;C:\Users\USER\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\USER\AppData\Local\Programs\Ollama
+	PATHEXT=.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.CPL
+	PROCESSOR_ARCHITECTURE=AMD64
+	PROCESSOR_IDENTIFIER=AMD64 Family 25 Model 68 Stepping 1, AuthenticAMD
+	PROCESSOR_LEVEL=25
+	PROCESSOR_REVISION=4401
+	PROGRAMDATA=C:\ProgramData
+	PROGRAMFILES=C:\Program Files
+	PROGRAMFILES(X86)=C:\Program Files (x86)
+	PROGRAMW6432=C:\Program Files
+	PSMODULEPATH=C:\Users\USER\Documents\WindowsPowerShell\Modules;C:\Program Files\WindowsPowerShell\Modules;C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules
+	PT8HOME=C:\Program Files\Cisco Packet Tracer 8.2.2
+	PUBLIC=C:\Users\Public
+	SESSIONNAME=Console
+	SYSTEMDRIVE=C:
+	SYSTEMROOT=C:\WINDOWS
+	TEMP=C:\Users\USER\AppData\Local\Temp
+	TMP=C:\Users\USER\AppData\Local\Temp
+	USERDOMAIN=DESKTOP-RBMNHEB
+	USERDOMAIN_ROAMINGPROFILE=DESKTOP-RBMNHEB
+	USERNAME=USER
+	USERPROFILE=C:\Users\USER
+	VBOX_HWVIRTEX_IGNORE_SVM_IN_USE=1
+	VBOX_MSI_INSTALL_PATH=C:\Program Files\Oracle\VirtualBox\
+	WINDIR=C:\WINDOWS
+
+pyproject.toml:
+[tool.briefcase]
+project_name = "AI Glasses"
+bundle = "com.example"
+version = "0.1.0"
+url = "https://example.com/ai_glasses"
+license = "MIT license"
+author = "User"
+author_email = "user@example.com"
+
+[tool.briefcase.app.ai_glasses]
+formal_name = "AI Glasses"
+description = "Smart Glasses Local AI App using Gemma"
+long_description = """A local AI application designed for iOS."""
+icon = "briefcase_icon"
+sources = ["src/ai_glasses"]
+test_sources = ["tests"]
+requires = [
+    "toga",
+    "llama-cpp-python"
+]
+
+[tool.briefcase.app.ai_glasses.ios]
+requires = [
+    "toga-iOS",
+    "llama-cpp-python"
+]
+supported = true
+
+Briefcase Log:
+[09:48:11]                                                                                                                                                            console.py:367
+           ********************************************************************************                                                                           console.py:367
+           **          WARNING: 'ai_glasses' uses pre-PEP 621 `license` format           **                                                                           console.py:367
+           ********************************************************************************                                                                           console.py:367
+                                                                                                                                                                      console.py:367
+             Briefcase now uses PEP 639 format for license definitions.                                                                                               console.py:367
+                                                                                                                                                                      console.py:367
+             PEP 639 requires the definition of both `license` and `license-files`, and                                                                               console.py:367
+             `license` must be a valid SPDX expression. The current value for `license`                                                                               console.py:367
+             seems to define a SPDX license of 'MIT'.                                                                                                                 console.py:367
+                                                                                                                                                                      console.py:367
+             Your project will not have a value for `license-files`. This will cause                                                                                  console.py:367
+             problems packaging for some platforms.                                                                                                                   console.py:367
+                                                                                                                                                                      console.py:367
+             Update your configuration to put the full license text in a file and use PEP                                                                             console.py:367
+             639 format for the license definition:                                                                                                                   console.py:367
+                                                                                                                                                                      console.py:367
+                 license = "MIT"                                                                                                                                      console.py:367
+                 license-files = ["LICENSE"]                                                                                                                          console.py:367
+                                                                                                                                                                      console.py:367
+             You should not release your project without resolving this warning.                                                                                      console.py:367
+                                                                                                                                                                      console.py:367
+           ********************************************************************************                                                                           console.py:367
+                                                                                                                                                                          dev.py:301
+           [ai_glasses] Activating dev environment...                                                                                                                     dev.py:301
+           Creating virtual environment (dev.cp314-win_amd64)... started                                                                                              std_venv.py:45
+                                                                                                                                                                   subprocess.py:844
+           >>> Running Command:                                                                                                                                    subprocess.py:844
+           >>>     'C:\Users\USER\develop\ai_glasses_python\venv\Scripts\python.exe' -m venv                                                                       subprocess.py:844
+           'C:\Users\USER\develop\ai_glasses_python\.briefcase\ai_glasses\dev.cp314-win_amd64'                                                                                      
+           >>> Working Directory:                                                                                                                                  subprocess.py:844
+           >>>     C:\Users\USER\develop\ai_glasses_python                                                                                                         subprocess.py:844
+[09:48:25] >>> Return code: 0                                                                                                                                      subprocess.py:844
+                                                                                                                                                                   subprocess.py:844
+                                                                                                                                                                   subprocess.py:844
+           >>> Running Command:                                                                                                                                    subprocess.py:844
+           >>>     'C:\Users\USER\develop\ai_glasses_python\.briefcase\ai_glasses\dev.cp314-win_amd64\Scripts\python.exe' -u -X utf8 -m pip install --upgrade pip  subprocess.py:844
+           >>> Working Directory:                                                                                                                                  subprocess.py:844
+           >>>     C:\Users\USER\develop\ai_glasses_python                                                                                                         subprocess.py:844
+           >>> Environment Overrides:                                                                                                                              subprocess.py:844
+           >>>                                                                                                                                                     subprocess.py:844
+           PATH=C:\Users\USER\develop\ai_glasses_python\.briefcase\ai_glasses\dev.cp314-win_amd64\Scripts;C:/Users/USER/.gemini/antigravity/bin;C:\Users\USER\AppD                  
+           ata\Roaming\Antigravity\bin;C:\Windows\System32;C:\Program                                                                                                               
+           Files\Git\cmd;C:\Users\USER\develop\flutter\bin;C:\Windows\System32\WindowsPowerShell\v1.0;;C:\Program Files\NVIDIA Corporation\NVIDIA                                   
+           App\NvDLISR;C:\Users\USER\AppData\Local\Microsoft\WindowsApps;C:\Users\USER\AppData\Local\Python\bin;C:\intelFPGA\18.1\modelsim_ase\win32aloem;C:\Users                  
+           \USER\AppData\Roaming\npm;C:\Users\USER\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\USER\AppData\Local\Programs\Ollama                                         
+           >>>     VIRTUAL_ENV=C:\Users\USER\develop\ai_glasses_python\.briefcase\ai_glasses\dev.cp314-win_amd64                                                   subprocess.py:844
+[09:48:28] Requirement already satisfied: pip in c:\users\user\develop\ai_glasses_python\.briefcase\ai_glasses\dev.cp314-win_amd64\lib\site-packages (25.3)        subprocess.py:196
+[09:48:29] Collecting pip                                                                                                                                          subprocess.py:196
+[09:48:30]   Downloading pip-26.2-py3-none-any.whl.metadata (4.6 kB)                                                                                               subprocess.py:196
+           Downloading pip-26.2-py3-none-any.whl (1.8 MB)                                                                                                          subprocess.py:196
+[09:48:31]    ---------------------------------------- 1.8/1.8 MB 3.2 MB/s  0:00:00                                                                                subprocess.py:196
+           Installing collected packages: pip                                                                                                                      subprocess.py:196
+             Attempting uninstall: pip                                                                                                                             subprocess.py:196
+               Found existing installation: pip 25.3                                                                                                               subprocess.py:196
+               Uninstalling pip-25.3:                                                                                                                              subprocess.py:196
+                 Successfully uninstalled pip-25.3                                                                                                                 subprocess.py:196
+[09:48:43] Successfully installed pip-26.2                                                                                                                         subprocess.py:196
+[09:48:44] >>> Return code: 0                                                                                                                                      subprocess.py:844
+                                                                                                                                                                   subprocess.py:844
+           Creating virtual environment (dev.cp314-win_amd64)... done                                                                                                 std_venv.py:45
+                                                                                                                                                                          dev.py:309
+           [ai_glasses] Installing requirements...                                                                                                                        dev.py:309
+           Installing dev requirements... started                                                                                                                         dev.py:111
+                                                                                                                                                                   subprocess.py:844
+           >>> Running Command:                                                                                                                                    subprocess.py:844
+           >>>     'C:\Users\USER\develop\ai_glasses_python\.briefcase\ai_glasses\dev.cp314-win_amd64\Scripts\python.exe' -u -X utf8 -m pip install --upgrade toga subprocess.py:844
+           llama-cpp-python                                                                                                                                                         
+           >>> Working Directory:                                                                                                                                  subprocess.py:844
+           >>>     C:\Users\USER\develop\ai_glasses_python                                                                                                         subprocess.py:844
+           >>> Environment Overrides:                                                                                                                              subprocess.py:844
+           >>>                                                                                                                                                     subprocess.py:844
+           PATH=C:\Users\USER\develop\ai_glasses_python\.briefcase\ai_glasses\dev.cp314-win_amd64\Scripts;C:/Users/USER/.gemini/antigravity/bin;C:\Users\USER\AppD                  
+           ata\Roaming\Antigravity\bin;C:\Windows\System32;C:\Program                                                                                                               
+           Files\Git\cmd;C:\Users\USER\develop\flutter\bin;C:\Windows\System32\WindowsPowerShell\v1.0;;C:\Program Files\NVIDIA Corporation\NVIDIA                                   
+           App\NvDLISR;C:\Users\USER\AppData\Local\Microsoft\WindowsApps;C:\Users\USER\AppData\Local\Python\bin;C:\intelFPGA\18.1\modelsim_ase\win32aloem;C:\Users                  
+           \USER\AppData\Roaming\npm;C:\Users\USER\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\USER\AppData\Local\Programs\Ollama                                         
+           >>>     VIRTUAL_ENV=C:\Users\USER\develop\ai_glasses_python\.briefcase\ai_glasses\dev.cp314-win_amd64                                                   subprocess.py:844
+[09:48:47] Collecting toga                                                                                                                                         subprocess.py:196
+[09:48:48]   Downloading toga-0.5.6-py3-none-any.whl.metadata (4.3 kB)                                                                                             subprocess.py:196
+           Collecting llama-cpp-python                                                                                                                             subprocess.py:196
+             Downloading llama_cpp_python-0.3.34.tar.gz (71.6 MB)                                                                                                  subprocess.py:196
+[09:49:43]      ---------------------------------------- 71.6/71.6 MB 1.6 MB/s  0:00:54                                                                            subprocess.py:196
+[09:49:53]   Installing build dependencies: started                                                                                                                subprocess.py:196
+[09:49:59]   Installing build dependencies: finished with status 'done'                                                                                            subprocess.py:196
+             Getting requirements to build wheel: started                                                                                                          subprocess.py:196
+[09:50:01]   Getting requirements to build wheel: finished with status 'done'                                                                                      subprocess.py:196
+             Installing backend dependencies: started                                                                                                              subprocess.py:196
+[09:50:45]   Installing backend dependencies: finished with status 'done'                                                                                          subprocess.py:196
+             Preparing metadata (pyproject.toml): started                                                                                                          subprocess.py:196
+[09:50:48]   Preparing metadata (pyproject.toml): finished with status 'done'                                                                                      subprocess.py:196
+           Collecting toga-winforms==0.5.6 (from toga)                                                                                                             subprocess.py:196
+             Downloading toga_winforms-0.5.6-py3-none-win_amd64.whl.metadata (3.5 kB)                                                                              subprocess.py:196
+           Collecting pythonnet>=3.0.0 (from toga-winforms==0.5.6->toga)                                                                                           subprocess.py:196
+             Downloading pythonnet-3.1.0-cp310.cp311.cp312.cp313.cp314-none-win32.win_amd64.whl.metadata (6.5 kB)                                                  subprocess.py:196
+           Collecting toga-core==0.5.6 (from toga-winforms==0.5.6->toga)                                                                                           subprocess.py:196
+[09:50:49]   Downloading toga_core-0.5.6-py3-none-any.whl.metadata (4.0 kB)                                                                                        subprocess.py:196
+           Collecting pillow>=10.0.0 (from toga-winforms==0.5.6->toga)                                                                                             subprocess.py:196
+[09:50:50]   Downloading pillow-12.3.0-cp314-cp314-win_amd64.whl.metadata (9.3 kB)                                                                                 subprocess.py:196
+           Collecting travertino==0.5.6 (from toga-core==0.5.6->toga-winforms==0.5.6->toga)                                                                        subprocess.py:196
+             Downloading travertino-0.5.6-py3-none-any.whl.metadata (3.0 kB)                                                                                       subprocess.py:196
+           Collecting typing-extensions>=4.5.0 (from llama-cpp-python)                                                                                             subprocess.py:196
+             Downloading typing_extensions-4.16.0-py3-none-any.whl.metadata (3.3 kB)                                                                               subprocess.py:196
+[09:50:51] Collecting numpy>=1.20.0 (from llama-cpp-python)                                                                                                        subprocess.py:196
+             Downloading numpy-2.5.1-cp314-cp314-win_amd64.whl.metadata (6.6 kB)                                                                                   subprocess.py:196
+           Collecting diskcache>=5.6.1 (from llama-cpp-python)                                                                                                     subprocess.py:196
+             Downloading diskcache-5.6.3-py3-none-any.whl.metadata (20 kB)                                                                                         subprocess.py:196
+[09:50:52] Collecting jinja2>=2.11.3 (from llama-cpp-python)                                                                                                       subprocess.py:196
+             Using cached jinja2-3.1.6-py3-none-any.whl.metadata (2.9 kB)                                                                                          subprocess.py:196
+           Collecting MarkupSafe>=2.0 (from jinja2>=2.11.3->llama-cpp-python)                                                                                      subprocess.py:196
+             Using cached markupsafe-3.0.3-cp314-cp314-win_amd64.whl.metadata (2.8 kB)                                                                             subprocess.py:196
+           Collecting clr_loader<0.4.0,>=0.3.1 (from pythonnet>=3.0.0->toga-winforms==0.5.6->toga)                                                                 subprocess.py:196
+             Downloading clr_loader-0.3.1-py3-none-any.whl.metadata (1.4 kB)                                                                                       subprocess.py:196
+[09:50:53] Collecting cffi>=1.17 (from clr_loader<0.4.0,>=0.3.1->pythonnet>=3.0.0->toga-winforms==0.5.6->toga)                                                     subprocess.py:196
+             Downloading cffi-2.1.1-cp314-cp314-win_amd64.whl.metadata (2.6 kB)                                                                                    subprocess.py:196
+           Collecting pycparser (from cffi>=1.17->clr_loader<0.4.0,>=0.3.1->pythonnet>=3.0.0->toga-winforms==0.5.6->toga)                                          subprocess.py:196
+             Downloading pycparser-3.0-py3-none-any.whl.metadata (8.2 kB)                                                                                          subprocess.py:196
+           Downloading toga-0.5.6-py3-none-any.whl (4.0 kB)                                                                                                        subprocess.py:196
+           Downloading toga_winforms-0.5.6-py3-none-win_amd64.whl (380 kB)                                                                                         subprocess.py:196
+[09:50:54] Downloading toga_core-0.5.6-py3-none-any.whl (170 kB)                                                                                                   subprocess.py:196
+           Downloading travertino-0.5.6-py3-none-any.whl (27 kB)                                                                                                   subprocess.py:196
+           Downloading diskcache-5.6.3-py3-none-any.whl (45 kB)                                                                                                    subprocess.py:196
+           Using cached jinja2-3.1.6-py3-none-any.whl (134 kB)                                                                                                     subprocess.py:196
+           Using cached markupsafe-3.0.3-cp314-cp314-win_amd64.whl (15 kB)                                                                                         subprocess.py:196
+           Downloading numpy-2.5.1-cp314-cp314-win_amd64.whl (12.6 MB)                                                                                             subprocess.py:196
+[09:50:59]    ---------------------------------------- 12.6/12.6 MB 2.4 MB/s  0:00:05                                                                              subprocess.py:196
+           Downloading pillow-12.3.0-cp314-cp314-win_amd64.whl (7.2 MB)                                                                                            subprocess.py:196
+[09:51:02]    ---------------------------------------- 7.2/7.2 MB 2.4 MB/s  0:00:03                                                                                subprocess.py:196
+           Downloading pythonnet-3.1.0-cp310.cp311.cp312.cp313.cp314-none-win32.win_amd64.whl (1.6 MB)                                                             subprocess.py:196
+[09:51:03]    ---------------------------------------- 1.6/1.6 MB 3.6 MB/s  0:00:00                                                                                subprocess.py:196
+           Downloading clr_loader-0.3.1-py3-none-any.whl (55 kB)                                                                                                   subprocess.py:196
+           Downloading cffi-2.1.1-cp314-cp314-win_amd64.whl (187 kB)                                                                                               subprocess.py:196
+           Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)                                                                                           subprocess.py:196
+           Downloading pycparser-3.0-py3-none-any.whl (48 kB)                                                                                                      subprocess.py:196
+[09:51:04] Building wheels for collected packages: llama-cpp-python                                                                                                subprocess.py:196
+             Building wheel for llama-cpp-python (pyproject.toml): started                                                                                         subprocess.py:196
+[09:51:05]   Building wheel for llama-cpp-python (pyproject.toml): finished with status 'error'                                                                    subprocess.py:196
+             error: subprocess-exited-with-error                                                                                                                   subprocess.py:196
+                                                                                                                                                                   subprocess.py:196
+             × Building wheel for llama-cpp-python (pyproject.toml) did not run successfully.                                                                      subprocess.py:196
+           >>> Return code: 1                                                                                                                                      subprocess.py:844
+                                                                                                                                                                   subprocess.py:844
+           Installing dev requirements... errored                                                                                                                         dev.py:111
+[09:51:06]                                                                                                                                                            __main__.py:42
+           Unable to install requirements. This may be because one of your                                                                                            __main__.py:43
+           requirements is invalid, or because pip was unable to connect                                                                                              __main__.py:43
+           to the PyPI server.                                                                                                                                        __main__.py:43
+           Saving log... started                                                                                                                                      console.py:566
+
+Main thread traceback:
+┌─────────────────────────────────────────────────────────────────────── Traceback (most recent call last) ────────────────────────────────────────────────────────────────────────┐
+│ C:\Users\USER\develop\ai_glasses_python\venv\Lib\site-packages\briefcase\integrations\virtual_environment\base.py:101 in install_requirements                                    │
+│                                                                                                                                                                                  │
+│    98 │   │   │   │   require_args.append(req)                                                                                                                                   │
+│    99 │   │                                                                                                                                                                      │
+│   100 │   │   try:                                                                                                                                                               │
+│ > 101 │   │   │   self.run(                                                                                                                                                      │
+│   102 │   │   │   │   [                                                                                                                                                          │
+│   103 │   │   │   │   │   self.executable,                                                                                                                                       │
+│   104 │   │   │   │   │   "-u",                                                                                                                                                  │
+│                                                                                                                                                                                  │
+│ ┌────────────────────────────────────────────────────────── locals ──────────────────────────────────────────────────────────┐                                                   │
+│ │ allow_editable = True                                                                                                      │                                                   │
+│ │ installer_args = []                                                                                                        │                                                   │
+│ │            req = 'llama-cpp-python'                                                                                        │                                                   │
+│ │   require_args = ['toga', 'llama-cpp-python']                                                                              │                                                   │
+│ │       requires = ['toga', 'llama-cpp-python']                                                                              │                                                   │
+│ │           self = <briefcase.integrations.virtual_environment.std_venv.VenvVirtualEnvironment object at 0x000001F7454BB8C0> │                                                   │
+│ └────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘                                                   │
+│                                                                                                                                                                                  │
+│ C:\Users\USER\develop\ai_glasses_python\venv\Lib\site-packages\briefcase\integrations\virtual_environment\base.py:155 in run                                                     │
+│                                                                                                                                                                                  │
+│   152 │   │   env = self.build_env(user_env)                                                                                                                                     │
+│   153 │   │   if env is not None:                                                                                                                                                │
+│   154 │   │   │   kwargs["env"] = env                                                                                                                                            │
+│ > 155 │   │   return self.tools.subprocess.run(args, **kwargs)                                                                                                                   │
+│   156 │                                                                                                                                                                          │
+│   157 │   def Popen(self, args: SubprocessArgsT, **kwargs) -> subprocess.Popen:                                                                                                  │
+│   158 │   │   """Create a Popen instance for a command in the virtual environment.                                                                                               │
+│                                                                                                                                                                                  │
+│ ┌────────────────────────────────────────────────────────────── locals ───────────────────────────────────────────────────────────────┐                                          │
+│ │     args = [                                                                                                                        │                                          │
+│ │            │   WindowsPath('C:/Users/USER/develop/ai_glasses_python/.briefcase/ai_glasses/dev.cp314-win_amd64/Scripts/python.exe'), │                                          │
+│ │            │   '-u',                                                                                                                │                                          │
+│ │            │   '-X',                                                                                                                │                                          │
+│ │            │   'utf8',                                                                                                              │                                          │
+│ │            │   '-m',                                                                                                                │                                          │
+│ │            │   'pip',                                                                                                               │                                          │
+│ │            │   'install',                                                                                                           │                                          │
+│ │            │   '--upgrade',                                                                                                         │                                          │
+│ │            │   'toga',                                                                                                              │                                          │
+│ │            │   'llama-cpp-python'                                                                                                   │                                          │
+│ │            ]                                                                                                                        │                                          │
+│ │      env = {                                                                                                                        │                                          │
+│ │            │   'PATH': 'C:\\Users\\USER\\develop\\ai_glasses_python\\.briefcase\\ai_glasses\\dev.cp314-win_amd6'+539,               │                                          │
+│ │            │   'VIRTUAL_ENV': 'C:\\Users\\USER\\develop\\ai_glasses_python\\.briefcase\\ai_glasses\\dev.cp314-win_amd6'+1           │                                          │
+│ │            }                                                                                                                        │                                          │
+│ │   kwargs = {                                                                                                                        │                                          │
+│ │            │   'check': True,                                                                                                       │                                          │
+│ │            │   'encoding': 'UTF-8',                                                                                                 │                                          │
+│ │            │   'env': {                                                                                                             │                                          │
+│ │            │   │   'PATH': 'C:\\Users\\USER\\develop\\ai_glasses_python\\.briefcase\\ai_glasses\\dev.cp314-win_amd6'+539,           │                                          │
+│ │            │   │   'VIRTUAL_ENV': 'C:\\Users\\USER\\develop\\ai_glasses_python\\.briefcase\\ai_glasses\\dev.cp314-win_amd6'+1       │                                          │
+│ │            │   }                                                                                                                    │                                          │
+│ │            }                                                                                                                        │                                          │
+│ │     self = <briefcase.integrations.virtual_environment.std_venv.VenvVirtualEnvironment object at 0x000001F7454BB8C0>                │                                          │
+│ │ user_env = None                                                                                                                     │                                          │
+│ └─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘                                          │
+│                                                                                                                                                                                  │
+│ C:\Users\USER\develop\ai_glasses_python\venv\Lib\site-packages\briefcase\integrations\subprocess.py:145 in inner                                                                 │
+│                                                                                                                                                                                  │
+│   142 │   │   │   with sub.tools.console.release_console_control():                                                                                                              │
+│   143 │   │   │   │   return sub_method(sub, args, *wrapped_args, **wrapped_kwargs)                                                                                              │
+│   144 │   │   else:                                                                                                                                                              │
+│ > 145 │   │   │   return sub_method(sub, args, *wrapped_args, **wrapped_kwargs)                                                                                                  │
+│   146 │                                                                                                                                                                          │
+│   147 │   return inner                                                                                                                                                           │
+│   148                                                                                                                                                                            │
+│                                                                                                                                                                                  │
+│ ┌────────────────────────────────────────────────────────────────────── locals ──────────────────────────────────────────────────────────────────────┐                           │
+│ │                    args = [                                                                                                                        │                           │
+│ │                           │   WindowsPath('C:/Users/USER/develop/ai_glasses_python/.briefcase/ai_glasses/dev.cp314-win_amd64/Scripts/python.exe'), │                           │
+│ │                           │   '-u',                                                                                                                │                           │
+│ │                           │   '-X',                                                                                                                │                           │
+│ │                           │   'utf8',                                                                                                              │                           │
+│ │                           │   '-m',                                                                                                                │                           │
+│ │                           │   'pip',                                                                                                               │                           │
+│ │                           │   'install',                                                                                                           │                           │
+│ │                           │   '--upgrade',                                                                                                         │                           │
+│ │                           │   'toga',                                                                                                              │                           │
+│ │                           │   'llama-cpp-python'                                                                                                   │                           │
+│ │                           ]                                                                                                                        │                           │
+│ │              executable = 'C:\\Users\\USER\\develop\\ai_glasses_python\\.briefcase\\ai_glasses\\dev.cp314-win_amd6'+20                             │                           │
+│ │ remove_dynamic_elements = False                                                                                                                    │                           │
+│ │                     sub = <briefcase.integrations.subprocess.Subprocess object at 0x000001F7454BA660>                                              │                           │
+│ │            wrapped_args = ()                                                                                                                       │                           │
+│ │          wrapped_kwargs = {                                                                                                                        │                           │
+│ │                           │   'check': True,                                                                                                       │                           │
+│ │                           │   'encoding': 'UTF-8',                                                                                                 │                           │
+│ │                           │   'env': {                                                                                                             │                           │
+│ │                           │   │   'PATH': 'C:\\Users\\USER\\develop\\ai_glasses_python\\.briefcase\\ai_glasses\\dev.cp314-win_amd6'+539,           │                           │
+│ │                           │   │   'VIRTUAL_ENV': 'C:\\Users\\USER\\develop\\ai_glasses_python\\.briefcase\\ai_glasses\\dev.cp314-win_amd6'+1       │                           │
+│ │                           │   }                                                                                                                    │                           │
+│ │                           }                                                                                                                        │                           │
+│ └────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘                           │
+│                                                                                                                                                                                  │
+│ C:\Users\USER\develop\ai_glasses_python\venv\Lib\site-packages\briefcase\integrations\subprocess.py:544 in run                                                                   │
+│                                                                                                                                                                                  │
+│   541 │   │   # caller sets stream_output=False, then ensure_console_is_safe() will                                                                                              │
+│   542 │   │   # disable any dynamic console elements while the command runs.                                                                                                     │
+│   543 │   │   if stream_output:                                                                                                                                                  │
+│ > 544 │   │   │   return self._run_and_stream_output(args, filter_func=filter_func, **kwargs)                                                                                    │
+│   545 │   │                                                                                                                                                                      │
+│   546 │   │   # Can't filter non-streamed output.                                                                                                                                │
+│   547 │   │   if filter_func:                                                                                                                                                    │
+│                                                                                                                                                                                  │
+│ ┌───────────────────────────────────────────────────────────────── locals ─────────────────────────────────────────────────────────────────┐                                     │
+│ │          args = [                                                                                                                        │                                     │
+│ │                 │   WindowsPath('C:/Users/USER/develop/ai_glasses_python/.briefcase/ai_glasses/dev.cp314-win_amd64/Scripts/python.exe'), │                                     │
+│ │                 │   '-u',                                                                                                                │                                     │
+│ │                 │   '-X',                                                                                                                │                                     │
+│ │                 │   'utf8',                                                                                                              │                                     │
+│ │                 │   '-m',                                                                                                                │                                     │
+│ │                 │   'pip',                                                                                                               │                                     │
+│ │                 │   'install',                                                                                                           │                                     │
+│ │                 │   '--upgrade',                                                                                                         │                                     │
+│ │                 │   'toga',                                                                                                              │                                     │
+│ │                 │   'llama-cpp-python'                                                                                                   │                                     │
+│ │                 ]                                                                                                                        │                                     │
+│ │   filter_func = None                                                                                                                     │                                     │
+│ │        kwargs = {                                                                                                                        │                                     │
+│ │                 │   'check': True,                                                                                                       │                                     │
+│ │                 │   'encoding': 'UTF-8',                                                                                                 │                                     │
+│ │                 │   'env': {                                                                                                             │                                     │
+│ │                 │   │   'PATH': 'C:\\Users\\USER\\develop\\ai_glasses_python\\.briefcase\\ai_glasses\\dev.cp314-win_amd6'+539,           │                                     │
+│ │                 │   │   'VIRTUAL_ENV': 'C:\\Users\\USER\\develop\\ai_glasses_python\\.briefcase\\ai_glasses\\dev.cp314-win_amd6'+1       │                                     │
+│ │                 │   }                                                                                                                    │                                     │
+│ │                 }                                                                                                                        │                                     │
+│ │          self = <briefcase.integrations.subprocess.Subprocess object at 0x000001F7454BA660>                                              │                                     │
+│ │ stream_output = True                                                                                                                     │                                     │
+│ └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘                                     │
+│                                                                                                                                                                                  │
+│ C:\Users\USER\develop\ai_glasses_python\venv\Lib\site-packages\briefcase\integrations\subprocess.py:621 in _run_and_stream_output                                                │
+│                                                                                                                                                                                  │
+│   618 │   │   self._log_return_code(return_code)                                                                                                                                 │
+│   619 │   │                                                                                                                                                                      │
+│   620 │   │   if check and return_code:                                                                                                                                          │
+│ > 621 │   │   │   raise subprocess.CalledProcessError(return_code, args, stderr=stderr)                                                                                          │
+│   622 │   │                                                                                                                                                                      │
+│   623 │   │   return subprocess.CompletedProcess(args, return_code, stderr=stderr)                                                                                               │
+│   624                                                                                                                                                                            │
+│                                                                                                                                                                                  │
+│ ┌──────────────────────────────────────────────────────────────── locals ────────────────────────────────────────────────────────────────┐                                       │
+│ │        args = [                                                                                                                        │                                       │
+│ │               │   WindowsPath('C:/Users/USER/develop/ai_glasses_python/.briefcase/ai_glasses/dev.cp314-win_amd64/Scripts/python.exe'), │                                       │
+│ │               │   '-u',                                                                                                                │                                       │
+│ │               │   '-X',                                                                                                                │                                       │
+│ │               │   'utf8',                                                                                                              │                                       │
+│ │               │   '-m',                                                                                                                │                                       │
+│ │               │   'pip',                                                                                                               │                                       │
+│ │               │   'install',                                                                                                           │                                       │
+│ │               │   '--upgrade',                                                                                                         │                                       │
+│ │               │   'toga',                                                                                                              │                                       │
+│ │               │   'llama-cpp-python'                                                                                                   │                                       │
+│ │               ]                                                                                                                        │                                       │
+│ │       check = True                                                                                                                     │                                       │
+│ │ filter_func = None                                                                                                                     │                                       │
+│ │      kwargs = {                                                                                                                        │                                       │
+│ │               │   'encoding': 'UTF-8',                                                                                                 │                                       │
+│ │               │   'env': {                                                                                                             │                                       │
+│ │               │   │   'PATH': 'C:\\Users\\USER\\develop\\ai_glasses_python\\.briefcase\\ai_glasses\\dev.cp314-win_amd6'+539,           │                                       │
+│ │               │   │   'VIRTUAL_ENV': 'C:\\Users\\USER\\develop\\ai_glasses_python\\.briefcase\\ai_glasses\\dev.cp314-win_amd6'+1       │                                       │
+│ │               │   },                                                                                                                   │                                       │
+│ │               │   'stdout': -1,                                                                                                        │                                       │
+│ │               │   'stderr': -2,                                                                                                        │                                       │
+│ │               │   'bufsize': 1                                                                                                         │                                       │
+│ │               }                                                                                                                        │                                       │
+│ │     process = <Popen: returncode: 1 args: ['C:\\Users\\USER\\develop\\ai_glasses_python\\....>                                         │                                       │
+│ │ return_code = 1                                                                                                                        │                                       │
+│ │        self = <briefcase.integrations.subprocess.Subprocess object at 0x000001F7454BA660>                                              │                                       │
+│ │      stderr = None                                                                                                                     │                                       │
+│ └────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘                                       │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+CalledProcessError: Command '[WindowsPath('C:/Users/USER/develop/ai_glasses_python/.briefcase/ai_glasses/dev.cp314-win_amd64/Scripts/python.exe'), '-u', '-X', 'utf8', '-m', 'pip', 'install', '--upgrade', 'toga', 'llama-cpp-python']' returned non-zero exit status 1.
+
+The above exception was the direct cause of the following exception:
+
+┌─────────────────────────────────────────────────────────────────────── Traceback (most recent call last) ────────────────────────────────────────────────────────────────────────┐
+│ C:\Users\USER\develop\ai_glasses_python\venv\Lib\site-packages\briefcase\__main__.py:27 in main                                                                                  │
+│                                                                                                                                                                                  │
+│   24 │   │   │   Path.cwd() / "pyproject.toml",                                                                                                                                  │
+│   25 │   │   │   overrides=overrides,                                                                                                                                            │
+│   26 │   │   )                                                                                                                                                                   │
+│ > 27 │   │   command(**options)                                                                                                                                                  │
+│   28 │   except HelpText as e:                                                                                                                                                   │
+│   29 │   │   console.info()                                                                                                                                                      │
+│   30 │   │   console.info(str(e))                                                                                                                                                │
+│                                                                                                                                                                                  │
+│ ┌───────────────────────────────────────────────────────────────── locals ──────────────────────────────────────────────────────────────────┐                                    │
+│ │       command = <briefcase.platforms.windows.app.WindowsAppDevCommand object at 0x000001F7454B9160>                                       │                                    │
+│ │       console = <briefcase.console.Console object at 0x000001F7454B8440>                                                                  │                                    │
+│ │             e = RequirementsInstallError()                                                                                                │                                    │
+│ │ extra_cmdline = []                                                                                                                        │                                    │
+│ │       options = {'appname': None, 'update_requirements': False, 'isolated': True, 'run_app': True, 'test_mode': False, 'passthrough': []} │                                    │
+│ │     overrides = {}                                                                                                                        │                                    │
+│ │        result = 200                                                                                                                       │                                    │
+│ └───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘                                    │
+│                                                                                                                                                                                  │
+│ C:\Users\USER\develop\ai_glasses_python\venv\Lib\site-packages\briefcase\commands\dev.py:311 in __call__                                                                         │
+│                                                                                                                                                                                  │
+│   308 │   │   │   if venv.created:                                                                                                                                               │
+│   309 │   │   │   │   self.console.info("Installing requirements...", prefix=app.app_name)                                                                                       │
+│   310 │   │   │   │   try:                                                                                                                                                       │
+│ > 311 │   │   │   │   │   self.install_dev_requirements(app, venv, **options)                                                                                                    │
+│   312 │   │   │   │   except Exception:                                                                                                                                          │
+│   313 │   │   │   │   │   # If any problem occurs during installing requirements, remove the                                                                                     │
+│   314 │   │   │   │   │   # venv; it will need to be re-created on the next run.                                                                                                 │
+│                                                                                                                                                                                  │
+│ ┌──────────────────────────────────────────────────────────── locals ─────────────────────────────────────────────────────────────┐                                              │
+│ │                 app = <com.example.ai-glasses v0.1.0 FinalizedAppConfig>                                                        │                                              │
+│ │             appname = None                                                                                                      │                                              │
+│ │           finalized = {'ai_glasses': <com.example.ai-glasses v0.1.0 FinalizedAppConfig>}                                        │                                              │
+│ │            isolated = True                                                                                                      │                                              │
+│ │             options = {}                                                                                                        │                                              │
+│ │         passthrough = []                                                                                                        │                                              │
+│ │             run_app = True                                                                                                      │                                              │
+│ │                self = <briefcase.platforms.windows.app.WindowsAppDevCommand object at 0x000001F7454B9160>                       │                                              │
+│ │           test_mode = False                                                                                                     │                                              │
+│ │ update_requirements = False                                                                                                     │                                              │
+│ │                venv = <briefcase.integrations.virtual_environment.std_venv.VenvVirtualEnvironment object at 0x000001F7454BB8C0> │                                              │
+│ └─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘                                              │
+│                                                                                                                                                                                  │
+│ C:\Users\USER\develop\ai_glasses_python\venv\Lib\site-packages\briefcase\commands\dev.py:112 in install_dev_requirements                                                         │
+│                                                                                                                                                                                  │
+│   109 │   │   │   return                                                                                                                                                         │
+│   110 │   │                                                                                                                                                                      │
+│   111 │   │   with self.console.wait_bar("Installing dev requirements..."):                                                                                                      │
+│ > 112 │   │   │   venv.install_requirements(                                                                                                                                     │
+│   113 │   │   │   │   requires,                                                                                                                                                  │
+│   114 │   │   │   │   allow_editable=True,                                                                                                                                       │
+│   115 │   │   │   │   installer_args=app.requirement_installer_args,                                                                                                             │
+│                                                                                                                                                                                  │
+│ ┌─────────────────────────────────────────────────────── locals ───────────────────────────────────────────────────────┐                                                         │
+│ │      app = <com.example.ai-glasses v0.1.0 FinalizedAppConfig>                                                        │                                                         │
+│ │  options = {}                                                                                                        │                                                         │
+│ │ requires = ['toga', 'llama-cpp-python']                                                                              │                                                         │
+│ │     self = <briefcase.platforms.windows.app.WindowsAppDevCommand object at 0x000001F7454B9160>                       │                                                         │
+│ │     venv = <briefcase.integrations.virtual_environment.std_venv.VenvVirtualEnvironment object at 0x000001F7454BB8C0> │                                                         │
+│ └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘                                                         │
+│                                                                                                                                                                                  │
+│ C:\Users\USER\develop\ai_glasses_python\venv\Lib\site-packages\briefcase\integrations\virtual_environment\base.py:119 in install_requirements                                    │
+│                                                                                                                                                                                  │
+│   116 │   │   │   │   encoding="UTF-8",                                                                                                                                          │
+│   117 │   │   │   )                                                                                                                                                              │
+│   118 │   │   except subprocess.CalledProcessError as e:                                                                                                                         │
+│ > 119 │   │   │   raise RequirementsInstallError() from e                                                                                                                        │
+│   120 │                                                                                                                                                                          │
+│   121 │   # -- Process management -------------------------------------------------                                                                                              │
+│   122                                                                                                                                                                            │
+│                                                                                                                                                                                  │
+│ ┌────────────────────────────────────────────────────────── locals ──────────────────────────────────────────────────────────┐                                                   │
+│ │ allow_editable = True                                                                                                      │                                                   │
+│ │ installer_args = []                                                                                                        │                                                   │
+│ │            req = 'llama-cpp-python'                                                                                        │                                                   │
+│ │   require_args = ['toga', 'llama-cpp-python']                                                                              │                                                   │
+│ │       requires = ['toga', 'llama-cpp-python']                                                                              │                                                   │
+│ │           self = <briefcase.integrations.virtual_environment.std_venv.VenvVirtualEnvironment object at 0x000001F7454BB8C0> │                                                   │
+│ └────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘                                                   │
+└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+RequirementsInstallError: Unable to install requirements. This may be because one of your
+requirements is invalid, or because pip was unable to connect
+to the PyPI server.
+

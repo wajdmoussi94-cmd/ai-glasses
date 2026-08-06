@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="AI Glasses">
+<title>AI Glasses</title>
+<style>
+html, body {
+  margin: 0; padding: 0;
+  background: #070a12;
+  color: white;
+  font-family: -apple-system, sans-serif;
+  min-height: 100%;
+  min-height: -webkit-fill-available;
+}
+#log {
+  padding: 20px;
+  font-size: 13px;
+  line-height: 1.8;
+}
+.ok  { color: #4ade80; }
+.err { color: #f87171; }
+.info{ color: #93c5fd; }
+button {
+  display: block;
+  width: calc(100% - 40px);
+  margin: 10px 20px;
+  padding: 18px;
+  background: #1e40af;
+  color: white;
+  border: none;
+  border-radius: 14px;
+  font-size: 16px;
+  font-family: inherit;
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+<div id="log"><p class="info">⏳ Loading AI Glasses debug mode...</p></div>
+<button onclick="testSpeech()">🔊 Test Voice</button>
+<button onclick="testMic()">🎙️ Test Microphone</button>
+<button onclick="testCam()">📷 Test Camera</button>
+<script>
+function log(msg, cls) {
+  var d = document.getElementById('log');
+  var p = document.createElement('p');
+  p.className = cls || 'info';
+  p.textContent = new Date().toLocaleTimeString() + ' — ' + msg;
+  d.appendChild(p);
+}
+
+window.onerror = function(msg, src, line) {
+  log('JS ERROR: ' + msg + ' (line ' + line + ')', 'err');
+};
+
+log('Page loaded OK', 'ok');
+log('iOS: ' + navigator.userAgent.includes('iPhone'), 'info');
+log('Safari standalone: ' + window.navigator.standalone, 'info');
+log('Speech synth: ' + ('speechSynthesis' in window), 'info');
+log('Speech recog: ' + (!!(window.SpeechRecognition || window.webkitSpeechRecognition)), 'info');
+log('MediaDevices: ' + (!!navigator.mediaDevices), 'info');
+log('HTTPS: ' + (location.protocol === 'https:'), 'info');
+
+function testSpeech() {
+  try {
+    window.speechSynthesis.cancel();
+    var u = new SpeechSynthesisUtterance('AI Glasses voice test successful. The audio system is working correctly.');
+    u.lang = 'en-US';
+    u.volume = 1;
+    u.onstart = function(){ log('Speech STARTED', 'ok'); };
+    u.onend   = function(){ log('Speech ENDED OK', 'ok'); };
+    u.onerror = function(e){ log('Speech ERROR: ' + e.error, 'err'); };
+    window.speechSynthesis.speak(u);
+    log('speechSynthesis.speak() called', 'info');
+  } catch(e) { log('Speech EXCEPTION: ' + e.message, 'err'); }
+}
+
+function testMic() {
+  try {
+    navigator.mediaDevices.getUserMedia({audio: true, video: false})
+    .then(function(s) {
+      log('Microphone ACCESS GRANTED', 'ok');
+      s.getTracks().forEach(function(t){ t.stop(); });
+
+      var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SR) { log('SpeechRecognition API not available', 'err'); return; }
+      var r = new SR();
+      r.onstart  = function(){ log('Recognition STARTED — speak now', 'ok'); };
+      r.onresult = function(e){ log('Heard: ' + e.results[0][0].transcript, 'ok'); };
+      r.onerror  = function(e){ log('Recognition ERROR: ' + e.error, 'err'); };
+      r.onend    = function(){ log('Recognition ENDED', 'info'); };
+      r.start();
+    })
+    .catch(function(e){ log('Mic DENIED: ' + e.message, 'err'); });
+  } catch(e) { log('Mic EXCEPTION: ' + e.message, 'err'); }
+}
+
+function testCam() {
+  try {
+    navigator.mediaDevices.getUserMedia({video: true, audio: false})
+    .then(function(s){ log('Camera ACCESS GRANTED', 'ok'); s.getTracks().forEach(function(t){ t.stop(); }); })
+    .catch(function(e){ log('Camera DENIED: ' + e.message, 'err'); });
+  } catch(e) { log('Camera EXCEPTION: ' + e.message, 'err'); }
+}
+</script>
+</body>
+</html>
