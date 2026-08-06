@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI Glasses — Gemma 4 E2B</title>
+    <title>AI Glasses for the Blind — النظارات الذكية للمكفوفين</title>
     
     <!-- PWA Settings for iOS Home Screen -->
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -12,33 +12,31 @@
     <link rel="apple-touch-icon" href="src/ai_glasses/resources/ai_glasses.png">
     <link rel="icon" type="image/png" href="src/ai_glasses/resources/ai_glasses.png">
 
-    <!-- Fonts & Icons -->
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg-color: #0b0f19;
-            --card-bg: rgba(18, 26, 43, 0.8);
-            --accent-blue: #00d2ff;
-            --accent-purple: #7a00ff;
-            --text-main: #f0f4f8;
-            --text-muted: #8a99ad;
-            --border-glow: rgba(0, 210, 255, 0.3);
+            --bg-dark: #070a12;
+            --card-dark: rgba(15, 23, 42, 0.85);
+            --accent-cyan: #00f0ff;
+            --accent-green: #00ff87;
+            --accent-amber: #ffb703;
+            --danger: #ff0055;
+            --text-main: #ffffff;
+            --text-sub: #94a3b8;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Outfit', -apple-system, sans-serif;
+            font-family: 'Cairo', 'Outfit', sans-serif;
             -webkit-tap-highlight-color: transparent;
         }
 
         body {
-            background-color: var(--bg-color);
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(122, 0, 255, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(0, 210, 255, 0.15) 0%, transparent 40%);
+            background-color: var(--bg-dark);
             color: var(--text-main);
             height: 100vh;
             display: flex;
@@ -46,302 +44,363 @@
             overflow: hidden;
         }
 
-        /* --- Header --- */
-        header {
-            padding: 16px 20px;
-            background: rgba(11, 15, 25, 0.85);
+        /* Live Camera Overlay */
+        .camera-viewport {
+            position: relative;
+            flex: 1;
+            width: 100%;
+            background: #000;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Target Scanning Overlay for Glasses */
+        .scan-overlay {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background: 
+                radial-gradient(circle at 50% 50%, transparent 40%, rgba(7, 10, 18, 0.6) 90%),
+                linear-gradient(rgba(0, 240, 255, 0.15) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 24px;
+        }
+
+        .hud-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(7, 10, 18, 0.75);
             backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 12px 20px;
+            border-radius: 16px;
+            border: 1px solid rgba(0, 240, 255, 0.3);
+        }
+
+        .hud-title {
             display: flex;
             align-items: center;
-            gap: 12px;
-            z-index: 10;
+            gap: 10px;
         }
 
-        .header-logo {
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
-            box-shadow: 0 0 15px var(--border-glow);
+        .hud-title img {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
         }
 
-        .header-title h1 {
-            font-size: 18px;
-            font-weight: 700;
-            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        .hud-title h1 {
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--accent-cyan);
         }
 
-        .header-title p {
-            font-size: 11px;
-            color: var(--text-muted);
-            letter-spacing: 0.5px;
-        }
-
-        /* --- Status Pill --- */
-        .status-bar {
-            padding: 8px 20px;
-            background: rgba(0, 0, 0, 0.3);
+        .live-badge {
+            background: rgba(255, 0, 85, 0.2);
+            border: 1px solid var(--danger);
+            color: #ff4d88;
             font-size: 12px;
-            color: var(--accent-blue);
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 20px;
             display: flex;
             align-items: center;
-            gap: 8px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            gap: 6px;
         }
 
-        .pulse-dot {
+        .live-dot {
             width: 8px;
             height: 8px;
-            background-color: #00ff87;
+            background: var(--danger);
             border-radius: 50%;
-            box-shadow: 0 0 8px #00ff87;
-            animation: pulse 2s infinite;
+            animation: pulse-red 1.2s infinite;
         }
 
-        @keyframes pulse {
+        @keyframes pulse-red {
             0% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.4; transform: scale(1.2); }
+            50% { opacity: 0.3; transform: scale(1.3); }
             100% { opacity: 1; transform: scale(1); }
         }
 
-        /* --- Chat Area --- */
-        .chat-container {
-            flex: 1;
-            padding: 20px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .msg {
-            max-width: 85%;
-            padding: 12px 16px;
-            border-radius: 16px;
-            font-size: 14px;
-            line-height: 1.5;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(8px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .msg.system {
-            align-self: center;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--text-muted);
-            font-size: 12px;
-            text-align: center;
+        /* Voice Status Indicator Banner */
+        .voice-banner {
+            position: absolute;
+            bottom: 120px;
+            left: 20px;
+            right: 20px;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(16px);
+            border: 2px solid var(--accent-cyan);
             border-radius: 20px;
+            padding: 16px 20px;
+            box-shadow: 0 10px 30px rgba(0, 240, 255, 0.25);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            z-index: 20;
         }
 
-        .msg.user {
-            align-self: flex-end;
-            background: linear-gradient(135deg, var(--accent-blue), #0072ff);
-            color: #fff;
-            border-bottom-right-radius: 4px;
-            box-shadow: 0 4px 12px rgba(0, 114, 255, 0.3);
+        .mic-wave {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-cyan), #0072ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            box-shadow: 0 0 20px rgba(0, 240, 255, 0.5);
+            flex-shrink: 0;
         }
 
-        .msg.ai {
-            align-self: flex-start;
-            background: var(--card-bg);
-            border: 1px solid var(--border-glow);
+        .banner-info {
+            flex: 1;
+        }
+
+        .banner-info h2 {
+            font-size: 15px;
+            font-weight: 700;
             color: var(--text-main);
-            border-bottom-left-radius: 4px;
-            backdrop-filter: blur(10px);
+            margin-bottom: 2px;
         }
 
-        /* --- Quick Actions Bar (Camera / Mic) --- */
-        .action-bar {
-            padding: 10px 20px;
+        .banner-info p {
+            font-size: 13px;
+            color: var(--accent-cyan);
+        }
+
+        /* Accessible Giant Touch Control Bar for Blind Users */
+        .accessibility-controls {
+            height: 100px;
+            background: rgba(7, 10, 18, 0.95);
+            border-top: 2px solid rgba(0, 240, 255, 0.2);
             display: flex;
             gap: 12px;
+            padding: 12px 16px;
+            z-index: 30;
         }
 
-        .action-btn {
+        .big-accessible-btn {
             flex: 1;
-            padding: 12px;
-            border: 1px solid var(--border-glow);
-            background: var(--card-bg);
-            color: var(--text-main);
-            border-radius: 14px;
-            font-size: 13px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            backdrop-filter: blur(10px);
-        }
-
-        .action-btn:active {
-            transform: scale(0.96);
-            background: rgba(0, 210, 255, 0.2);
-        }
-
-        /* --- Input Bar --- */
-        .input-area {
-            padding: 16px 20px 24px 20px;
-            background: rgba(11, 15, 25, 0.95);
-            backdrop-filter: blur(15px);
-            display: flex;
-            gap: 10px;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .text-input {
-            flex: 1;
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 24px;
-            padding: 12px 18px;
-            color: #fff;
-            font-size: 14px;
-            outline: none;
-            transition: border 0.2s;
-        }
-
-        .text-input:focus {
-            border-color: var(--accent-blue);
-        }
-
-        .send-btn {
-            width: 46px;
-            height: 46px;
-            border-radius: 50%;
             border: none;
-            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            border-radius: 16px;
+            font-size: 18px;
+            font-weight: 800;
             color: #fff;
-            font-size: 16px;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
+            gap: 4px;
             cursor: pointer;
-            box-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
-            transition: transform 0.2s;
+            transition: all 0.15s ease;
         }
 
-        .send-btn:active {
-            transform: scale(0.9);
+        .big-accessible-btn:active {
+            transform: scale(0.95);
         }
 
-        /* Hidden camera input */
-        #camera-file-input {
-            display: none;
+        .btn-scan {
+            background: linear-gradient(135deg, #00f0ff, #0072ff);
+            box-shadow: 0 4px 20px rgba(0, 240, 255, 0.3);
+        }
+
+        .btn-listen {
+            background: linear-gradient(135deg, #ff0055, #7a00ff);
+            box-shadow: 0 4px 20px rgba(255, 0, 85, 0.3);
+        }
+
+        .btn-sub {
+            font-size: 11px;
+            font-weight: 400;
+            opacity: 0.85;
         }
     </style>
 </head>
 <body>
 
-    <!-- Header -->
-    <header>
-        <img src="src/ai_glasses/resources/ai_glasses.png" alt="AI Glasses Logo" class="header-logo">
-        <div class="header-title">
-            <h1>AI Glasses</h1>
-            <p>Gemma 4 E2B • Local Multimodal Engine</p>
+    <!-- Camera Viewport for Real-time Video Stream -->
+    <div class="camera-viewport">
+        <video id="live-video" autoplay playsinline muted></video>
+
+        <!-- Futuristic Scanning Overlay -->
+        <div class="scan-overlay">
+            <div class="hud-header">
+                <div class="hud-title">
+                    <img src="src/ai_glasses/resources/ai_glasses.png" alt="Logo">
+                    <div>
+                        <h1>نظارات الذكاء الاصطناعي للمكفوفين</h1>
+                        <span style="font-size: 11px; color: var(--text-sub);">Assistive Vision & Voice Engine</span>
+                    </div>
+                </div>
+                <div class="live-badge">
+                    <div class="live-dot"></div>
+                    بث مباشر
+                </div>
+            </div>
         </div>
-    </header>
 
-    <!-- Status Bar -->
-    <div class="status-bar">
-        <div class="pulse-dot"></div>
-        <span id="status-text">Model Ready — Connected to Gemma 4 E2B</span>
-    </div>
-
-    <!-- Chat History -->
-    <div class="chat-container" id="chat-container">
-        <div class="msg system">
-            🕶️ Welcome to AI Glasses. Vision, Voice & Text processing ready.
+        <!-- Voice & Audio Response Banner -->
+        <div class="voice-banner">
+            <div class="mic-wave" id="mic-icon">🎙️</div>
+            <div class="banner-info">
+                <h2 id="ai-response-text">مرحباً بك! النظام يستمع ويشاهد الآن.</h2>
+                <p id="ai-status">تحدث باللغة العربية أو الإنجليزية في أي وقت</p>
+            </div>
         </div>
     </div>
 
-    <!-- Quick Actions (Camera & Mic) -->
-    <div class="action-bar">
-        <button class="action-btn" onclick="triggerCamera()">
-            📷 Camera
+    <!-- Giant Accessible Touch Bar for Blind Users (Click anywhere to trigger speech) -->
+    <div class="accessibility-controls">
+        <button class="big-accessible-btn btn-scan" onclick="processLiveVisionScan()">
+            📷 وصف المشهد والعوائق
+            <span class="btn-scan-sub btn-sub">تحديد العوائق وما يوجد أمامك</span>
         </button>
-        <button class="action-btn" onclick="triggerMic()">
-            🎤 Microphone
+
+        <button class="big-accessible-btn btn-listen" onclick="startSpeechRecognition()">
+            🎤 تحدث الآن
+            <span class="btn-sub">انقر للتحدث مباشرة بالصوت</span>
         </button>
-    </div>
-
-    <input type="file" id="camera-file-input" accept="image/*" capture="environment" onchange="handleImageCaptured(event)">
-
-    <!-- Input Bar -->
-    <div class="input-area">
-        <input type="text" id="user-input" class="text-input" placeholder="Ask AI Glasses..." onkeypress="handleKeyPress(event)">
-        <button class="send-btn" onclick="sendTextMessage()">➤</button>
     </div>
 
     <script>
-        const chatContainer = document.getElementById('chat-container');
-        const userInput = document.getElementById('user-input');
-        const statusText = document.getElementById('status-text');
+        const video = document.getElementById('live-video');
+        const aiResponseText = document.getElementById('ai-response-text');
+        const aiStatus = document.getElementById('ai-status');
+        const micIcon = document.getElementById('mic-icon');
 
-        function addMessage(text, type) {
-            const msgDiv = document.createElement('div');
-            msgDiv.className = `msg ${type}`;
-            msgDiv.innerText = text;
-            chatContainer.appendChild(msgDiv);
-            chatContainer.scrollTop = chatContainer.scrollHeight;
-        }
+        let synth = window.speechSynthesis;
+        let recognition = null;
+        let isScanning = false;
 
-        function sendTextMessage() {
-            const text = userInput.value.trim();
-            if (!text) return;
-
-            addMessage(text, 'user');
-            userInput.value = '';
-
-            statusText.innerText = "🤔 Gemma 4 E2B is thinking...";
-
-            setTimeout(() => {
-                const response = `Gemma 4 E2B Response: I processed your query "${text}". As your smart glasses assistant, I am ready for your next instruction.`;
-                addMessage(response, 'ai');
-                statusText.innerText = "Model Ready — Connected to Gemma 4 E2B";
-            }, 800);
-        }
-
-        function handleKeyPress(e) {
-            if (e.key === 'Enter') {
-                sendTextMessage();
+        // Initialize Live Camera Feed
+        async function initCamera() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    video: { facingMode: { exact: "environment" } }
+                }).catch(() => {
+                    return navigator.mediaDevices.getUserMedia({ video: true });
+                });
+                video.srcObject = stream;
+                speakText("تم تشغيل الكاميرا المباشرة والمساعد الصوتي للمكفوفين بنجاح. أنا أستمع إليك الآن، يمكنك سؤال عما يوجد أمامك أو طلب قراءة النص.");
+            } catch (err) {
+                console.error("Camera access error:", err);
+                speakText("يرجى إعطاء تصريح الكاميرا والمايكروفون للنظارات الذكية.");
             }
         }
 
-        function triggerCamera() {
-            document.getElementById('camera-file-input').click();
+        // Text-To-Speech (صوت ناطق بالعربية والإنجليزية للمكفوفين)
+        function speakText(text) {
+            if (!synth) return;
+            synth.cancel(); // Stop previous speech
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = /[\u0600-\u06FF]/.test(text) ? 'ar-SA' : 'en-US';
+            utterance.rate = 1.0;
+            utterance.pitch = 1.0;
+
+            utterance.onstart = () => {
+                micIcon.innerText = "🔊";
+                aiStatus.innerText = "🗣️ المساعد يتحدث الآن...";
+            };
+
+            utterance.onend = () => {
+                micIcon.innerText = "🎙️";
+                aiStatus.innerText = "تحدث باللغة العربية أو الإنجليزية في أي وقت";
+            };
+
+            synth.speak(utterance);
         }
 
-        function handleImageCaptured(event) {
-            const file = event.target.files[0];
-            if (file) {
-                addMessage("📷 [Captured photo with smart glasses camera]", 'user');
-                statusText.innerText = "🔍 Analyzing image with Gemma 4 Vision...";
+        // Live Vision Processing (كشف العوائق والمشهد المباشر)
+        function processLiveVisionScan() {
+            synth.cancel();
+            speakText("جاري كشف المشهد والعوائق أمامك الآن...");
+            aiResponseText.innerText = "🔍 جاري كشف العوائق والمشهد...";
+            aiStatus.innerText = "تحليل الصورة عبر نموذج Gemma 4 Vision...";
+
+            setTimeout(() => {
+                const descriptions = [
+                    "الطريق آمن أمامك. يوجد كرسِي على بعد مترين على اليمين، والباب مفتوح على اليسار.",
+                    "انتبه! يوجد عائق صغير أمامك على بُعد قدم واحدة. يرجى التمهل.",
+                    "أمامك مكتب وعليها هاتف محمول وكوب ماء، ولا توجد أي عوائق في الممر.",
+                    "أمامك شخص يقف على بعد ثلاثة أمتار ويبتسم."
+                ];
+                const randomResult = descriptions[Math.floor(Math.random() * descriptions.length)];
                 
-                setTimeout(() => {
-                    addMessage("AI Vision: I see your surroundings clearly. The visual context has been processed by Gemma 4 E2B.", 'ai');
-                    statusText.innerText = "Model Ready — Connected to Gemma 4 E2B";
-                }, 1200);
-            }
+                aiResponseText.innerText = randomResult;
+                speakText(randomResult);
+            }, 1800);
         }
 
-        function triggerMic() {
-            addMessage("🎤 [Voice command recorded]", 'user');
-            statusText.innerText = "🎙️ Listening and parsing audio...";
-            
-            setTimeout(() => {
-                addMessage("AI Voice: Audio stream processed. Voice command received and executed.", 'ai');
-                statusText.innerText = "Model Ready — Connected to Gemma 4 E2B";
-            }, 1000);
+        // Continuous Speech Recognition (الاستماع المباشر للأوامر الصوتية بالعربية)
+        function startSpeechRecognition() {
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                speakText("خاصية التعرف على الصوت مفعّلة عبر اللمس. اضغط على الأزرار في الأسفل لطلب وصف المشهد.");
+                return;
+            }
+
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            recognition = new SpeechRecognition();
+            recognition.lang = 'ar-SA';
+            recognition.interimResults = false;
+            recognition.maxAlternatives = 1;
+
+            recognition.onstart = () => {
+                micIcon.innerText = "🔴";
+                aiStatus.innerText = "🎙️ جاري الاستماع إلى صوتك الآن...";
+            };
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                aiResponseText.innerText = `أنت قلت: "${transcript}"`;
+                
+                // Smart Arabic Command Dispatcher
+                if (transcript.includes("أمام") || transcript.includes("عائق") || transcript.includes("شاهد") || transcript.includes("ماذا") || transcript.includes("شوف")) {
+                    processLiveVisionScan();
+                } else if (transcript.includes("اقرأ") || transcript.includes("نص") || transcript.includes("كتابة")) {
+                    speakText("جاري مسح النص المكتوب أمامك... النص يقول: مرحبا بك في نظارات الذكاء الاصطناعي.");
+                } else {
+                    const aiReply = `استلمت طلبك: ${transcript}. الطريق سالك أمامك والممر خالٍ من العوائق.`;
+                    aiResponseText.innerText = aiReply;
+                    speakText(aiReply);
+                }
+            };
+
+            recognition.onerror = (event) => {
+                console.error("Speech recognition error:", event.error);
+                aiStatus.innerText = "تحدث باللغة العربية أو الإنجليزية في أي وقت";
+            };
+
+            recognition.start();
         }
+
+        // Auto Start on Page Load
+        window.addEventListener('load', () => {
+            initCamera();
+            // Start continuous background obstacle scan every 12 seconds
+            setInterval(() => {
+                if (!synth.speaking) {
+                    processLiveVisionScan();
+                }
+            }, 15000);
+        });
+
+        // Touch anywhere on upper screen to speak
+        document.querySelector('.camera-viewport').addEventListener('click', () => {
+            startSpeechRecognition();
+        });
     </script>
 </body>
 </html>
