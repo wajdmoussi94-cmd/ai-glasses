@@ -26,7 +26,7 @@ jobs:
           python -m py_compile src/ai_glasses/model_handler.py
           echo "✅ Syntax check passed!"
 
-  # ===== Step 2: Build Real iPhone IPA File (iphoneos ARM64 SDK) =====
+  # ===== Step 2: Build Real iPhone IPA File =====
   build-ios:
     name: Build Ready-to-Install iPhone IPA
     runs-on: macos-14
@@ -52,20 +52,15 @@ jobs:
       - name: Create iOS Xcode Project
         run: briefcase create iOS
 
-      - name: Compile for Physical iPhone Device (xcodebuild -sdk iphoneos)
-        run: |
-          xcodebuild -project "build/ai_glasses/ios/xcode/AI Glasses.xcodeproj" \
-            -scheme "AI Glasses" \
-            -sdk iphoneos \
-            -configuration Release \
-            CODE_SIGNING_ALLOWED=NO \
-            CODE_SIGNING_REQUIRED=NO \
-            clean build
+      - name: Build for Physical iPhone Device
+        run: briefcase build iOS -d
 
       - name: Package directly into ready-to-use AIGlasses.ipa
         run: |
           mkdir -p build_ipa/Payload
-          cp -R "build/ai_glasses/ios/xcode/build/Release-iphoneos/AI Glasses.app" build_ipa/Payload/
+          APP_PATH=$(find build -name "*.app" -type d | head -n 1)
+          echo "Found compiled app bundle at: $APP_PATH"
+          cp -R "$APP_PATH" build_ipa/Payload/
           cd build_ipa && zip -r AIGlasses.ipa Payload
 
       - name: Upload Ready AIGlasses.ipa Artifact
