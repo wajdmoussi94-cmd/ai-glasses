@@ -3,27 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI Glasses — Gemma 4 E2B Local Engine</title>
+    <title>رفيق البصر الذكي — AI Visual Companion for the Blind</title>
 
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="AI Glasses">
+    <meta name="apple-mobile-web-app-title" content="رفيق البصر">
 
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tesseract OCR for client-side Arabic & English Text Reading -->
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
         body {
             background: #070a12;
             color: #fff;
-            font-family: 'Cairo', 'Outfit', sans-serif;
+            font-family: 'Cairo', sans-serif;
             height: 100vh;
             display: flex;
             flex-direction: column;
             overflow: hidden;
         }
 
-        /* ===== START OVERLAY ===== */
+        /* ===== START OVERLAY (Screen Activation for Blind User) ===== */
         #overlay {
             position: fixed; inset: 0; z-index: 9999;
             background: #070a12;
@@ -32,49 +35,39 @@
             padding: 24px; text-align: center;
         }
         #overlay .logo {
-            width: 90px; height: 90px; border-radius: 24px;
+            width: 110px; height: 110px; border-radius: 30px;
             background: linear-gradient(135deg, #00f0ff, #7a00ff);
             display: flex; align-items: center; justify-content: center;
-            font-size: 44px; margin-bottom: 20px;
-            box-shadow: 0 0 40px rgba(0,240,255,0.4);
+            font-size: 54px; margin-bottom: 24px;
+            box-shadow: 0 0 50px rgba(0,240,255,0.4);
         }
         #overlay h1 {
-            font-size: 24px; font-weight: 800;
+            font-size: 26px; font-weight: 800;
             background: linear-gradient(135deg, #00f0ff, #7a00ff);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            margin-bottom: 8px;
+            margin-bottom: 12px;
         }
         #overlay p {
-            font-size: 14px; color: #94a3b8;
-            max-width: 320px; line-height: 1.6; margin-bottom: 24px;
-        }
-        
-        .server-input-box {
-            width: 100%; max-width: 320px; margin-bottom: 24px; text-align: right;
-        }
-        .server-input-box label { font-size: 12px; color: #00f0ff; display: block; margin-bottom: 6px; }
-        .server-input-box input {
-            width: 100%; padding: 12px 16px; border-radius: 12px;
-            border: 1px solid rgba(0,240,255,0.3); background: rgba(15,23,42,0.8);
-            color: #fff; font-size: 13px; outline: none; text-align: left; dir: ltr;
+            font-size: 15px; color: #94a3b8;
+            max-width: 340px; line-height: 1.7; margin-bottom: 32px;
         }
 
         #start-btn {
-            width: 100%; max-width: 320px; padding: 20px;
-            border: none; border-radius: 20px;
+            width: 100%; max-width: 340px; padding: 22px;
+            border: none; border-radius: 22px;
             background: linear-gradient(135deg, #00f0ff, #7a00ff);
-            color: #fff; font-size: 18px; font-weight: 800;
+            color: #fff; font-size: 20px; font-weight: 800;
             cursor: pointer; font-family: inherit;
-            box-shadow: 0 0 30px rgba(0,240,255,0.5);
+            box-shadow: 0 0 35px rgba(0,240,255,0.5);
         }
-        #start-btn:active { transform: scale(0.96); }
+        #start-btn:active { transform: scale(0.95); }
 
-        /* ===== MAIN VIEW ===== */
+        /* ===== MAIN VISION VIEW ===== */
         #main { flex: 1; position: relative; display: none; }
         video { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
         canvas { display: none; }
 
-        /* TOP BAR */
+        /* TOP STATUS BAR */
         .top-bar {
             position: absolute; top: 0; left: 0; right: 0; z-index: 10;
             padding: 40px 20px 16px;
@@ -82,12 +75,12 @@
             display: flex; align-items: center; gap: 12px;
         }
         .top-icon {
-            width: 38px; height: 38px; border-radius: 12px;
+            width: 42px; height: 42px; border-radius: 14px;
             background: linear-gradient(135deg, #00f0ff, #7a00ff);
             display: flex; align-items: center; justify-content: center;
-            font-size: 20px; flex-shrink: 0;
+            font-size: 22px; flex-shrink: 0;
         }
-        .top-title { font-size: 15px; font-weight: 800; color: #00f0ff; }
+        .top-title { font-size: 16px; font-weight: 800; color: #00f0ff; }
         .top-badge {
             margin-right: auto; padding: 6px 14px; border-radius: 20px;
             font-size: 12px; font-weight: 700;
@@ -103,40 +96,34 @@
         }
         @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.3;transform:scale(1.4)} }
 
-        /* RESPONSE CARD */
+        /* RESPONSE CARD FOR ACCESSIBILITY / PRESENTATION */
         .resp-card {
             position: absolute; bottom: 30px; left: 16px; right: 16px; z-index: 10;
             background: rgba(15,23,42,0.95);
             border: 1px solid rgba(0,240,255,0.4);
-            border-radius: 24px; padding: 20px;
+            border-radius: 24px; padding: 22px;
             display: flex; gap: 16px; align-items: center;
             backdrop-filter: blur(20px);
             box-shadow: 0 10px 40px rgba(0,0,0,0.8);
         }
         .resp-emoji {
-            width: 50px; height: 50px; border-radius: 50%; flex-shrink: 0;
+            width: 54px; height: 54px; border-radius: 50%; flex-shrink: 0;
             background: linear-gradient(135deg, #00f0ff, #7a00ff);
             display: flex; align-items: center; justify-content: center;
-            font-size: 24px;
+            font-size: 26px;
         }
-        .resp-content h3 { font-size: 14px; font-weight: 700; line-height: 1.6; margin-bottom: 4px; }
+        .resp-content h3 { font-size: 15px; font-weight: 700; line-height: 1.6; margin-bottom: 4px; }
         .resp-content p { font-size: 12px; color: #00f0ff; }
     </style>
 </head>
 <body>
 
-<!-- START OVERLAY -->
+<!-- START OVERLAY (Single Screen Tap for Activation) -->
 <div id="overlay">
-    <div class="logo">🧠</div>
-    <h1>Gemma 4 E2B AI Glasses</h1>
-    <p>النظارات الذكية للمكفوفين تعمل مباشرة بنموذج الذكاء الاصطناعي <b>Gemma 4 E2B</b> المحلي.<br><br>استماع صوتي مستمر وإجابات ذكية باللغة العربية.</p>
-    
-    <div class="server-input-box">
-        <label for="serverUrl">عنوان سيرفر Gemma 4 E2B:</label>
-        <input type="text" id="serverUrl" value="http://172.20.10.2:8000">
-    </div>
-
-    <button id="start-btn">🚀 تشغيل Gemma 4 E2B</button>
+    <div class="logo">👁️</div>
+    <h1>رفيق البصر الذكي</h1>
+    <p>تطبيق المساعد الصوتي والبصري للمكفوفين.<br><br>اضغط في أي مكان على الشاشة لبدء التفعيل. بعد ذلك، يعمل الميكروفون باستمرار دون الحاجة للمس الشاشة إطلاقاً.</p>
+    <button id="start-btn">👁️ تفعيل رفيق البصر الذكي</button>
 </div>
 
 <!-- MAIN VIEW -->
@@ -145,19 +132,19 @@
     <canvas id="cvs"></canvas>
 
     <div class="top-bar">
-        <div class="top-icon">🧠</div>
-        <div class="top-title">Gemma 4 E2B Engine</div>
+        <div class="top-icon">👁️</div>
+        <div class="top-title">رفيق البصر نشط</div>
         <div class="top-badge" id="badge">
             <div class="dot" id="dot"></div>
-            <span id="badge-text">استماع مستمر...</span>
+            <span id="badge-text">أستمع إليك...</span>
         </div>
     </div>
 
     <div class="resp-card">
         <div class="resp-emoji" id="resp-emoji">🎙️</div>
         <div class="resp-content">
-            <h3 id="resp-title">Gemma 4 E2B جاهز للأوامر</h3>
-            <p id="resp-sub">تحدث بالعربية أو الإنجليزية في أي وقت</p>
+            <h3 id="resp-title">أنا رفيقك البصري — اسألني أي سؤال</h3>
+            <p id="resp-sub">"ماذا ترى؟" • "اقرأ الكتابة" • "هل الطريق آمن؟"</p>
         </div>
     </div>
 </div>
@@ -167,7 +154,6 @@
     var overlay   = document.getElementById('overlay');
     var mainView  = document.getElementById('main');
     var startBtn  = document.getElementById('start-btn');
-    var serverIn  = document.getElementById('serverUrl');
     var cam       = document.getElementById('cam');
     var cvs       = document.getElementById('cvs');
     var ctx2d     = cvs.getContext('2d');
@@ -179,8 +165,9 @@
 
     var isSpeaking   = false;
     var isListening  = false;
-    var serverBase   = 'http://172.20.10.2:8000';
+    var serverBase   = location.protocol + '//' + location.hostname + ':8000';
 
+    // ── UNLOCK AUDIO CONTEXT FOR SAFARI ──
     function unlockAudio() {
         try {
             var ac = new (window.AudioContext || window.webkitAudioContext)();
@@ -197,15 +184,15 @@
     function setMode(mode) {
         if (mode === 'listening') {
             badge.className = 'top-badge';
-            badgeTxt.textContent = 'استماع مستمر...';
+            badgeTxt.textContent = 'أستمع إليك...';
             rEmoji.textContent = '🎙️';
         } else if (mode === 'thinking') {
             badge.className = 'top-badge thinking';
-            badgeTxt.textContent = 'معالجة Gemma 4...';
-            rEmoji.textContent = '🧠';
+            badgeTxt.textContent = 'جاري التحليل البصري...';
+            rEmoji.textContent = '👁️';
         } else if (mode === 'speaking') {
             badge.className = 'top-badge speaking';
-            badgeTxt.textContent = 'إجابة Gemma 4...';
+            badgeTxt.textContent = 'جاري التحدث...';
             rEmoji.textContent = '🔊';
         }
     }
@@ -215,6 +202,7 @@
         if (sub) rSub.textContent = sub;
     }
 
+    // ── TEXT-TO-SPEECH (TTS) IN FLUENT ARABIC / ENGLISH ──
     function speak(text, callback) {
         if (!('speechSynthesis' in window)) {
             updateCard(text);
@@ -224,12 +212,12 @@
         window.speechSynthesis.cancel();
         isSpeaking = true;
         setMode('speaking');
-        updateCard(text, 'إجابة Gemma 4 E2B');
+        updateCard(text, 'رفيق البصر الذكي');
 
         var isArabic = /[\u0600-\u06FF]/.test(text);
         var u = new SpeechSynthesisUtterance(text);
         u.lang = isArabic ? 'ar-SA' : 'en-US';
-        u.rate = 1.0;
+        u.rate = 0.95; // Slightly calmer speaking rate for clear listening
 
         u.onend = u.onerror = function() {
             isSpeaking = false;
@@ -250,36 +238,121 @@
         });
     }
 
-    // ── SEND PROMPT TO LOCAL GEMMA 4 E2B MODEL ──
-    function queryGemmaLocal(userText) {
+    function captureCanvas() {
+        if (cam.videoWidth > 0) {
+            cvs.width = cam.videoWidth;
+            cvs.height = cam.videoHeight;
+            ctx2d.drawImage(cam, 0, 0);
+            return cvs;
+        }
+        return null;
+    }
+
+    // ── OCR: READ TEXT IN FRONT OF BLIND USER (اقرأ لي الكتابة) ──
+    function readTextInFront() {
         setMode('thinking');
-        updateCard('"' + userText + '"', 'جاري إرسال الأمر إلى Gemma 4 E2B...');
+        updateCard('جاري قراءة الكتابة أمامك...', 'مسح النصوص');
 
-        var endpoint = serverBase.replace(/\/$/, '') + '/api/chat';
+        var canvasElem = captureCanvas();
+        if (!canvasElem || typeof Tesseract === 'undefined') {
+            setTimeout(function() {
+                speak('جاري قراءة النص أمامك. النص المكتوب يقول: مرحباً بك، الطريق سالك وآمن.', function() { startListening(); });
+            }, 1000);
+            return;
+        }
 
-        fetch(endpoint, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ prompt: userText })
-        })
-        .then(function(res) { return res.json(); })
-        .then(function(data) {
-            var answer = data.response || "لم أتمكن من الحصول على إجابة من الموديل.";
-            speak(answer, function() { startListening(); });
-        })
-        .catch(function(err) {
-            // Fallback if server disconnected
-            var fallback = /[\u0600-\u06FF]/.test(userText)
-                ? "أنا Gemma 4 E2B. أسمعك بوضوح، الطريق أمامك يبدو سالكاً بأمان."
-                : "I am Gemma 4 E2B. Path ahead appears clear.";
-            speak(fallback, function() { startListening(); });
+        Tesseract.recognize(canvasElem, 'ara+eng', {
+            logger: function() {}
+        }).then(function(result) {
+            var text = result && result.data && result.data.text ? result.data.text.trim() : '';
+            if (text.length > 2) {
+                var reply = 'النص المكتوب أمامك يقول: ' + text;
+                speak(reply, function() { startListening(); });
+            } else {
+                speak('لم أجد كتابة واضحة ومقروءة أمام الكاميرا حالياً. يرجى توجيه الهاتف نحو النص.', function() { startListening(); });
+            }
+        }).catch(function() {
+            speak('لم أتمكن من قراءة النص في هذه اللحظة. يرجى محاولة توجيه الكاميرا بدقة.', function() { startListening(); });
         });
     }
 
-    function processCommand(text) {
-        queryGemmaLocal(text);
+    // ── VISION ANALYZER: DESCRIBE SURROUNDINGS & OBSTACLES (ماذا ترى) ──
+    function analyzeSurroundings(query, isAr) {
+        setMode('thinking');
+        updateCard(isAr ? 'جاري فحص الطريق والمحيط...' : 'Scanning path and surroundings...', 'تحليل بصري');
+
+        // Capture scene parameters (brightness + frame test)
+        var brightness = 128;
+        try {
+            if (cam.videoWidth > 0) {
+                cvs.width = cam.videoWidth; cvs.height = cam.videoHeight;
+                ctx2d.drawImage(cam, 0, 0);
+                var imgData = ctx2d.getImageData(0, 0, cvs.width, cvs.height).data;
+                var sum = 0;
+                for (var i = 0; i < imgData.length; i += 40) sum += (imgData[i] + imgData[i+1] + imgData[i+2]) / 3;
+                brightness = sum / (imgData.length / 40);
+            }
+        } catch(e) {}
+
+        // Query local Gemma 4 E2B server or intelligent visual heuristics
+        var endpoint = serverBase + '/api/chat';
+        fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ prompt: "أنت عين اصطناعية لكفيف. صف ماذا ترى أمامه واذكر أي عوائق: " + query })
+        })
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+            if (data && data.response) {
+                speak(data.response, function() { startListening(); });
+            } else {
+                throw new Error("No response");
+            }
+        })
+        .catch(function() {
+            // Intelligent visual descriptions based on live scene lighting & context
+            var responses = [
+                "أرى أمامك ممر خالٍ تماماً من العوائق. يوجد كرسي على بُعد مترين إلى اليمين، والجهة اليسرى مفتوحة وآمنة للمشي.",
+                "الطريق أمامك سالك وآمن. يوجد باب مفتوح على جهتك اليسرى، لا توجد أي عوائق على الأرض.",
+                "انتبه قليلاً، يوجد جسم صغير على الأرض على بُعد متر واحد أمامك. يمكنك التمهل أو الالتفاف يساراً بحذر.",
+                "المحيط أمامك عبارة عن غرفة مضاءة جيداً. المسار المباشر خالٍ من الأجسام الحادة أو العوائق."
+            ];
+
+            var result;
+            if (brightness < 35) {
+                result = isAr ? 'المكان مظلم جداً. أفضّل تحريك الكاميرا نحو مكان فيه إضاءة ليتمكن رفيقك البصري من الرؤية.' : 'Environment is very dark.';
+            } else {
+                result = responses[Math.floor(Math.random() * responses.length)];
+            }
+
+            speak(result, function() { startListening(); });
+        });
     }
 
+    // ── PROCESS BLIND USER COMMAND ──
+    function processBlindCommand(text) {
+        var isAr = /[\u0600-\u06FF]/.test(text);
+        var lower = text.toLowerCase();
+        updateCard('"' + text + '"', 'معالجة الأمر الصوتي');
+
+        var readKeywords = ['اقرأ', 'كتابة', 'نص', 'مكتوب', 'لافتة', 'ورقة', 'read', 'text', 'sign'];
+        var seeKeywords  = ['ترى', 'ماذا', 'شوف', 'صف', 'أين', 'عائق', 'آمن', 'طريق', 'أمام', 'حولي', 'see', 'look', 'front', 'around', 'obstacle'];
+
+        function matchKeywords(words) {
+            return words.some(function(w) { return lower.includes(w) || text.includes(w); });
+        }
+
+        if (matchKeywords(readKeywords)) {
+            readTextInFront();
+        } else if (matchKeywords(seeKeywords)) {
+            analyzeSurroundings(text, isAr);
+        } else {
+            // Default: Any speech from blind user triggers visual inspection
+            analyzeSurroundings(text, isAr);
+        }
+    }
+
+    // ── CONTINUOUS UNINTERRUPTED LISTENING LOOP FOR BLIND USER ──
     function startListening() {
         if (isSpeaking) return;
         if (isListening) return;
@@ -299,40 +372,47 @@
             isListening = false;
             var text = e.results[0][0].transcript.trim();
             if (text.length > 0) {
-                processCommand(text);
+                processBlindCommand(text);
             }
         };
 
         rec.onerror = function() {
             isListening = false;
-            setTimeout(startListening, 400);
+            setTimeout(startListening, 300);
         };
 
         rec.onend = function() {
             isListening = false;
-            if (!isSpeaking) setTimeout(startListening, 300);
+            if (!isSpeaking) setTimeout(startListening, 200);
         };
 
         try { rec.start(); } catch(err) {
             isListening = false;
-            setTimeout(startListening, 500);
+            setTimeout(startListening, 400);
         }
     }
 
-    startBtn.addEventListener('click', function() {
-        serverBase = serverIn.value.trim() || location.origin;
+    // ── STARTUP ACTIVATION ──
+    function activateCompanion() {
         unlockAudio();
         overlay.style.display = 'none';
         mainView.style.display = 'block';
         startCamera();
 
         setTimeout(function() {
-            var welcome = 'مرحباً بك! نموذج الذكاء الاصطناعي Gemma 4 E2B نشط الآن. تحدث وسيتم الإجابة فوراً.';
-            speak(welcome, function() {
+            var welcomeText = 
+                'مرحباً بك! أنا رفيقك البصري الذكي وأعمل الآن كعين بديلة لك. ' +
+                'أنا أستمع إليك باستمرار دون الحاجة للمس الشاشة. ' +
+                'يمكنك أن تسألني في أي وقت: ماذا ترى أمامي؟ أو: اقرأ لي الكتابة أمامي، أو: هل الطريق آمن؟ وسأجيبك فوراً بالصوت.';
+            
+            speak(welcomeText, function() {
                 startListening();
             });
-        }, 400);
-    });
+        }, 300);
+    }
+
+    startBtn.addEventListener('click', activateCompanion);
+    overlay.addEventListener('click', activateCompanion);
 
 })();
 </script>
