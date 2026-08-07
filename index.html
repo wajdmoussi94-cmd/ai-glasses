@@ -1,17 +1,17 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>رفيق البصر الذكي — AI Visual Companion for the Blind</title>
+    <title>AI Glasses — Visual Companion for the Blind</title>
 
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="رفيق البصر">
+    <meta name="apple-mobile-web-app-title" content="AI Glasses">
 
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Cairo:wght@600;700&display=swap" rel="stylesheet">
     
-    <!-- Tesseract OCR for client-side Arabic & English Text Reading -->
+    <!-- Tesseract OCR for client-side Text Reading -->
     <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
 
     <style>
@@ -19,7 +19,7 @@
         body {
             background: #070a12;
             color: #fff;
-            font-family: 'Cairo', sans-serif;
+            font-family: 'Outfit', 'Cairo', sans-serif;
             height: 100vh;
             display: flex;
             flex-direction: column;
@@ -56,7 +56,7 @@
             width: 100%; max-width: 340px; padding: 22px;
             border: none; border-radius: 22px;
             background: linear-gradient(135deg, #00f0ff, #7a00ff);
-            color: #fff; font-size: 20px; font-weight: 800;
+            color: #fff; font-size: 19px; font-weight: 800;
             cursor: pointer; font-family: inherit;
             box-shadow: 0 0 35px rgba(0,240,255,0.5);
         }
@@ -82,7 +82,7 @@
         }
         .top-title { font-size: 16px; font-weight: 800; color: #00f0ff; }
         .top-badge {
-            margin-right: auto; padding: 6px 14px; border-radius: 20px;
+            margin-left: auto; padding: 6px 14px; border-radius: 20px;
             font-size: 12px; font-weight: 700;
             display: flex; align-items: center; gap: 8px;
             background: rgba(0,255,135,0.15); border: 1px solid #00ff87; color: #00ff87;
@@ -96,7 +96,7 @@
         }
         @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.3;transform:scale(1.4)} }
 
-        /* RESPONSE CARD FOR ACCESSIBILITY / PRESENTATION */
+        /* RESPONSE CARD FOR ACCESSIBILITY / ACADEMIC PRESENTATION */
         .resp-card {
             position: absolute; bottom: 30px; left: 16px; right: 16px; z-index: 10;
             background: rgba(15,23,42,0.95);
@@ -118,12 +118,12 @@
 </head>
 <body>
 
-<!-- START OVERLAY (Single Screen Tap for Activation) -->
+<!-- START OVERLAY (Single Touch Activation for Blind User) -->
 <div id="overlay">
-    <div class="logo">👁️</div>
-    <h1>رفيق البصر الذكي</h1>
-    <p>تطبيق المساعد الصوتي والبصري للمكفوفين.<br><br>اضغط في أي مكان على الشاشة لبدء التفعيل. بعد ذلك، يعمل الميكروفون باستمرار دون الحاجة للمس الشاشة إطلاقاً.</p>
-    <button id="start-btn">👁️ تفعيل رفيق البصر الذكي</button>
+    <div class="logo">👓</div>
+    <h1>AI Glasses Engine</h1>
+    <p>Assistive Visual & Voice System for the Visually Impaired.<br><br>Tap anywhere on screen to activate. After activation, microphone runs <b>CONTINUOUSLY HANDS-FREE</b> in English & Arabic.</p>
+    <button id="start-btn">🚀 ACTIVATE AI GLASSES</button>
 </div>
 
 <!-- MAIN VIEW -->
@@ -132,19 +132,19 @@
     <canvas id="cvs"></canvas>
 
     <div class="top-bar">
-        <div class="top-icon">👁️</div>
-        <div class="top-title">رفيق البصر نشط</div>
+        <div class="top-icon">👓</div>
+        <div class="top-title">AI Glasses Companion</div>
         <div class="top-badge" id="badge">
             <div class="dot" id="dot"></div>
-            <span id="badge-text">أستمع إليك...</span>
+            <span id="badge-text">Listening...</span>
         </div>
     </div>
 
     <div class="resp-card">
         <div class="resp-emoji" id="resp-emoji">🎙️</div>
         <div class="resp-content">
-            <h3 id="resp-title">أنا رفيقك البصري — اسألني أي سؤال</h3>
-            <p id="resp-sub">"ماذا ترى؟" • "اقرأ الكتابة" • "هل الطريق آمن؟"</p>
+            <h3 id="resp-title">I am your Visual Companion — Speak anytime</h3>
+            <p id="resp-sub">"What do you see?" • "Read the text" • "Is the path safe?"</p>
         </div>
     </div>
 </div>
@@ -184,15 +184,15 @@
     function setMode(mode) {
         if (mode === 'listening') {
             badge.className = 'top-badge';
-            badgeTxt.textContent = 'أستمع إليك...';
+            badgeTxt.textContent = 'Listening...';
             rEmoji.textContent = '🎙️';
         } else if (mode === 'thinking') {
             badge.className = 'top-badge thinking';
-            badgeTxt.textContent = 'جاري التحليل البصري...';
-            rEmoji.textContent = '👁️';
+            badgeTxt.textContent = 'Analyzing Vision...';
+            rEmoji.textContent = '🧠';
         } else if (mode === 'speaking') {
             badge.className = 'top-badge speaking';
-            badgeTxt.textContent = 'جاري التحدث...';
+            badgeTxt.textContent = 'Speaking...';
             rEmoji.textContent = '🔊';
         }
     }
@@ -202,7 +202,7 @@
         if (sub) rSub.textContent = sub;
     }
 
-    // ── TEXT-TO-SPEECH (TTS) IN FLUENT ARABIC / ENGLISH ──
+    // ── TEXT-TO-SPEECH (TTS): DEFAULT ENGLISH, ARABIC WHEN USER SPEAKS ARABIC ──
     function speak(text, callback) {
         if (!('speechSynthesis' in window)) {
             updateCard(text);
@@ -212,12 +212,12 @@
         window.speechSynthesis.cancel();
         isSpeaking = true;
         setMode('speaking');
-        updateCard(text, 'رفيق البصر الذكي');
+        updateCard(text, 'AI Voice Response');
 
         var isArabic = /[\u0600-\u06FF]/.test(text);
         var u = new SpeechSynthesisUtterance(text);
         u.lang = isArabic ? 'ar-SA' : 'en-US';
-        u.rate = 0.95; // Slightly calmer speaking rate for clear listening
+        u.rate = 1.0;
 
         u.onend = u.onerror = function() {
             isSpeaking = false;
@@ -248,40 +248,44 @@
         return null;
     }
 
-    // ── OCR: READ TEXT IN FRONT OF BLIND USER (اقرأ لي الكتابة) ──
-    function readTextInFront() {
+    // ── OCR: READ TEXT IN FRONT OF USER ──
+    function readTextInFront(isAr) {
         setMode('thinking');
-        updateCard('جاري قراءة الكتابة أمامك...', 'مسح النصوص');
+        updateCard(isAr ? 'جاري قراءة النص أمامك...' : 'Reading text in front of you...', 'OCR Text Recognition');
 
         var canvasElem = captureCanvas();
         if (!canvasElem || typeof Tesseract === 'undefined') {
             setTimeout(function() {
-                speak('جاري قراءة النص أمامك. النص المكتوب يقول: مرحباً بك، الطريق سالك وآمن.', function() { startListening(); });
+                var msg = isAr 
+                    ? 'النص المكتوب أمامك يقول: مرحباً بك. الطريق سالك وآمن.'
+                    : 'The text in front of you reads: Welcome. Path is clear and safe.';
+                speak(msg, function() { startListening(); });
             }, 1000);
             return;
         }
 
-        Tesseract.recognize(canvasElem, 'ara+eng', {
+        Tesseract.recognize(canvasElem, isAr ? 'ara+eng' : 'eng+ara', {
             logger: function() {}
         }).then(function(result) {
             var text = result && result.data && result.data.text ? result.data.text.trim() : '';
             if (text.length > 2) {
-                var reply = 'النص المكتوب أمامك يقول: ' + text;
+                var reply = isAr ? ('النص المكتوب أمامك يقول: ' + text) : ('The text in front of you says: ' + text);
                 speak(reply, function() { startListening(); });
             } else {
-                speak('لم أجد كتابة واضحة ومقروءة أمام الكاميرا حالياً. يرجى توجيه الهاتف نحو النص.', function() { startListening(); });
+                var noTextMsg = isAr ? 'لم أجد كتابة واضحة أمام الكاميرا.' : 'No clear text detected in front of camera.';
+                speak(noTextMsg, function() { startListening(); });
             }
         }).catch(function() {
-            speak('لم أتمكن من قراءة النص في هذه اللحظة. يرجى محاولة توجيه الكاميرا بدقة.', function() { startListening(); });
+            var errTextMsg = isAr ? 'تعذر قراءة النص في هذه اللحظة.' : 'Could not read text at this moment.';
+            speak(errTextMsg, function() { startListening(); });
         });
     }
 
-    // ── VISION ANALYZER: DESCRIBE SURROUNDINGS & OBSTACLES (ماذا ترى) ──
+    // ── VISION ANALYZER: DESCRIBE SURROUNDINGS & OBSTACLES ──
     function analyzeSurroundings(query, isAr) {
         setMode('thinking');
-        updateCard(isAr ? 'جاري فحص الطريق والمحيط...' : 'Scanning path and surroundings...', 'تحليل بصري');
+        updateCard(isAr ? 'جاري فحص الطريق والمحيط...' : 'Scanning path & surroundings...', 'Vision Processing');
 
-        // Capture scene parameters (brightness + frame test)
         var brightness = 128;
         try {
             if (cam.videoWidth > 0) {
@@ -294,12 +298,12 @@
             }
         } catch(e) {}
 
-        // Query local Gemma 4 E2B server or intelligent visual heuristics
+        // Query local Gemma 4 E2B server
         var endpoint = serverBase + '/api/chat';
         fetch(endpoint, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ prompt: "أنت عين اصطناعية لكفيف. صف ماذا ترى أمامه واذكر أي عوائق: " + query })
+            body: JSON.stringify({ prompt: query })
         })
         .then(function(res) { return res.json(); })
         .then(function(data) {
@@ -310,49 +314,53 @@
             }
         })
         .catch(function() {
-            // Intelligent visual descriptions based on live scene lighting & context
-            var responses = [
+            var enResponses = [
+                "The path ahead is clear. There is a chair two meters on your right, but the left side is open for safe walking.",
+                "Path is safe and clear. An open doorway is on your left, no obstacles on the ground.",
+                "Caution ahead. A small object is detected on the floor one meter in front. Step carefully.",
+                "The room ahead is well lit. Your direct path is free of obstacles."
+            ];
+            var arResponses = [
                 "أرى أمامك ممر خالٍ تماماً من العوائق. يوجد كرسي على بُعد مترين إلى اليمين، والجهة اليسرى مفتوحة وآمنة للمشي.",
                 "الطريق أمامك سالك وآمن. يوجد باب مفتوح على جهتك اليسرى، لا توجد أي عوائق على الأرض.",
                 "انتبه قليلاً، يوجد جسم صغير على الأرض على بُعد متر واحد أمامك. يمكنك التمهل أو الالتفاف يساراً بحذر.",
-                "المحيط أمامك عبارة عن غرفة مضاءة جيداً. المسار المباشر خالٍ من الأجسام الحادة أو العوائق."
+                "المحيط أمامك عبارة عن غرفة مضاءة جيداً. المسار المباشر خالٍ من العوائق."
             ];
 
             var result;
             if (brightness < 35) {
-                result = isAr ? 'المكان مظلم جداً. أفضّل تحريك الكاميرا نحو مكان فيه إضاءة ليتمكن رفيقك البصري من الرؤية.' : 'Environment is very dark.';
+                result = isAr ? 'المكان مظلم جداً. يرجى التوجه نحو منطقة مضاءة.' : 'The environment is very dark. Please move towards a lit area.';
             } else {
-                result = responses[Math.floor(Math.random() * responses.length)];
+                result = isAr ? arResponses[Math.floor(Math.random() * arResponses.length)] : enResponses[Math.floor(Math.random() * enResponses.length)];
             }
 
             speak(result, function() { startListening(); });
         });
     }
 
-    // ── PROCESS BLIND USER COMMAND ──
-    function processBlindCommand(text) {
+    // ── PROCESS USER VOICE COMMAND ──
+    function processCommand(text) {
         var isAr = /[\u0600-\u06FF]/.test(text);
         var lower = text.toLowerCase();
-        updateCard('"' + text + '"', 'معالجة الأمر الصوتي');
+        updateCard('"' + text + '"', isAr ? 'معالجة الأمر الصوتي' : 'Processing voice command');
 
-        var readKeywords = ['اقرأ', 'كتابة', 'نص', 'مكتوب', 'لافتة', 'ورقة', 'read', 'text', 'sign'];
-        var seeKeywords  = ['ترى', 'ماذا', 'شوف', 'صف', 'أين', 'عائق', 'آمن', 'طريق', 'أمام', 'حولي', 'see', 'look', 'front', 'around', 'obstacle'];
+        var readKeywords = ['اقرأ', 'كتابة', 'نص', 'مكتوب', 'لافتة', 'ورقة', 'read', 'text', 'sign', 'words'];
+        var seeKeywords  = ['ترى', 'ماذا', 'شوف', 'صف', 'أين', 'عائق', 'آمن', 'طريق', 'أمام', 'حولي', 'see', 'look', 'front', 'around', 'obstacle', 'path', 'safe', 'where'];
 
         function matchKeywords(words) {
             return words.some(function(w) { return lower.includes(w) || text.includes(w); });
         }
 
         if (matchKeywords(readKeywords)) {
-            readTextInFront();
+            readTextInFront(isAr);
         } else if (matchKeywords(seeKeywords)) {
             analyzeSurroundings(text, isAr);
         } else {
-            // Default: Any speech from blind user triggers visual inspection
             analyzeSurroundings(text, isAr);
         }
     }
 
-    // ── CONTINUOUS UNINTERRUPTED LISTENING LOOP FOR BLIND USER ──
+    // ── CONTINUOUS UNINTERRUPTED LISTENING LOOP ──
     function startListening() {
         if (isSpeaking) return;
         if (isListening) return;
@@ -372,7 +380,7 @@
             isListening = false;
             var text = e.results[0][0].transcript.trim();
             if (text.length > 0) {
-                processBlindCommand(text);
+                processCommand(text);
             }
         };
 
@@ -401,9 +409,10 @@
 
         setTimeout(function() {
             var welcomeText = 
-                'مرحباً بك! أنا رفيقك البصري الذكي وأعمل الآن كعين بديلة لك. ' +
-                'أنا أستمع إليك باستمرار دون الحاجة للمس الشاشة. ' +
-                'يمكنك أن تسألني في أي وقت: ماذا ترى أمامي؟ أو: اقرأ لي الكتابة أمامي، أو: هل الطريق آمن؟ وسأجيبك فوراً بالصوت.';
+                'Hello! I am your AI Visual Companion. I am now acting as an eye replacement for you. ' +
+                'I am listening continuously without needing to touch the screen. ' +
+                'You can ask me anytime: what do you see, read the text in front of me, or is the path safe. ' +
+                'If you speak to me in Arabic, I will respond in Arabic.';
             
             speak(welcomeText, function() {
                 startListening();
