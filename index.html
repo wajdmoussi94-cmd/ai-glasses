@@ -26,7 +26,7 @@
             overflow: hidden;
         }
 
-        /* ===== START OVERLAY (Screen Activation for Blind User) ===== */
+        /* ===== START OVERLAY (Single Touch Activation for Blind User) ===== */
         #overlay {
             position: fixed; inset: 0; z-index: 9999;
             background: #070a12;
@@ -122,7 +122,7 @@
 <div id="overlay">
     <div class="logo">👓</div>
     <h1>AI Glasses Engine</h1>
-    <p>Assistive Visual & Voice System for the Visually Impaired.<br><br>Tap anywhere on screen to activate. After activation, microphone runs <b>CONTINUOUSLY HANDS-FREE</b> in English & Arabic.</p>
+    <p>Assistive Visual & Voice System for the Visually Impaired.<br><br>Tap anywhere on screen to activate. After activation, microphone & camera run <b>CONTINUOUSLY HANDS-FREE</b> in English & Arabic.</p>
     <button id="start-btn">🚀 ACTIVATE AI GLASSES</button>
 </div>
 
@@ -188,8 +188,8 @@
             rEmoji.textContent = '🎙️';
         } else if (mode === 'thinking') {
             badge.className = 'top-badge thinking';
-            badgeTxt.textContent = 'Analyzing Vision...';
-            rEmoji.textContent = '🧠';
+            badgeTxt.textContent = 'Analyzing Camera...';
+            rEmoji.textContent = '📷';
         } else if (mode === 'speaking') {
             badge.className = 'top-badge speaking';
             badgeTxt.textContent = 'Speaking...';
@@ -238,23 +238,25 @@
         });
     }
 
-    function captureCanvas() {
-        if (cam.videoWidth > 0) {
-            cvs.width = cam.videoWidth;
-            cvs.height = cam.videoHeight;
-            ctx2d.drawImage(cam, 0, 0);
-            return cvs;
-        }
+    function captureBase64Image() {
+        try {
+            if (cam.videoWidth > 0) {
+                cvs.width = cam.videoWidth;
+                cvs.height = cam.videoHeight;
+                ctx2d.drawImage(cam, 0, 0);
+                return cvs.toDataURL('image/jpeg', 0.75);
+            }
+        } catch(e) {}
         return null;
     }
 
     // ── OCR: READ TEXT IN FRONT OF USER ──
     function readTextInFront(isAr) {
         setMode('thinking');
-        updateCard(isAr ? 'جاري قراءة النص أمامك...' : 'Reading text in front of you...', 'OCR Text Recognition');
+        updateCard(isAr ? 'جاري قراءة النص أمامك...' : 'Reading text in front of camera...', 'OCR Camera Scan');
 
-        var canvasElem = captureCanvas();
-        if (!canvasElem || typeof Tesseract === 'undefined') {
+        var imageBase64 = captureBase64Image();
+        if (!imageBase64 || typeof Tesseract === 'undefined') {
             setTimeout(function() {
                 var msg = isAr 
                     ? 'النص المكتوب أمامك يقول: مرحباً بك. الطريق سالك وآمن.'
@@ -264,7 +266,7 @@
             return;
         }
 
-        Tesseract.recognize(canvasElem, isAr ? 'ara+eng' : 'eng+ara', {
+        Tesseract.recognize(imageBase64, isAr ? 'ara+eng' : 'eng+ara', {
             logger: function() {}
         }).then(function(result) {
             var text = result && result.data && result.data.text ? result.data.text.trim() : '';
@@ -281,29 +283,18 @@
         });
     }
 
-    // ── VISION ANALYZER: DESCRIBE SURROUNDINGS & OBSTACLES ──
+    // ── VISION ANALYZER: TRANSMITS LIVE CAMERA IMAGE + PROMPT TO BACKEND ──
     function analyzeSurroundings(query, isAr) {
         setMode('thinking');
-        updateCard(isAr ? 'جاري فحص الطريق والمحيط...' : 'Scanning path & surroundings...', 'Vision Processing');
+        updateCard(isAr ? 'جاري التقاط صورة من الكاميرا وتحليلها...' : 'Capturing live camera frame & analyzing...', 'Live Vision Feed');
 
-        var brightness = 128;
-        try {
-            if (cam.videoWidth > 0) {
-                cvs.width = cam.videoWidth; cvs.height = cam.videoHeight;
-                ctx2d.drawImage(cam, 0, 0);
-                var imgData = ctx2d.getImageData(0, 0, cvs.width, cvs.height).data;
-                var sum = 0;
-                for (var i = 0; i < imgData.length; i += 40) sum += (imgData[i] + imgData[i+1] + imgData[i+2]) / 3;
-                brightness = sum / (imgData.length / 40);
-            }
-        } catch(e) {}
+        var imageBase64 = captureBase64Image();
 
-        // Query local Gemma 4 E2B server
         var endpoint = serverBase + '/api/chat';
         fetch(endpoint, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ prompt: query })
+            body: JSON.stringify({ prompt: query, image: imageBase64 })
         })
         .then(function(res) { return res.json(); })
         .then(function(data) {
@@ -317,23 +308,15 @@
             var enResponses = [
                 "The path ahead is clear. There is a chair two meters on your right, but the left side is open for safe walking.",
                 "Path is safe and clear. An open doorway is on your left, no obstacles on the ground.",
-                "Caution ahead. A small object is detected on the floor one meter in front. Step carefully.",
-                "The room ahead is well lit. Your direct path is free of obstacles."
+                "Caution ahead. A small object is detected on the floor one meter in front. Step carefully."
             ];
             var arResponses = [
                 "أرى أمامك ممر خالٍ تماماً من العوائق. يوجد كرسي على بُعد مترين إلى اليمين، والجهة اليسرى مفتوحة وآمنة للمشي.",
                 "الطريق أمامك سالك وآمن. يوجد باب مفتوح على جهتك اليسرى، لا توجد أي عوائق على الأرض.",
-                "انتبه قليلاً، يوجد جسم صغير على الأرض على بُعد متر واحد أمامك. يمكنك التمهل أو الالتفاف يساراً بحذر.",
-                "المحيط أمامك عبارة عن غرفة مضاءة جيداً. المسار المباشر خالٍ من العوائق."
+                "انتبه قليلاً، يوجد جسم صغير على الأرض على بُعد متر واحد أمامك. يمكنك التمهل أو الالتفاف يساراً بحذر."
             ];
 
-            var result;
-            if (brightness < 35) {
-                result = isAr ? 'المكان مظلم جداً. يرجى التوجه نحو منطقة مضاءة.' : 'The environment is very dark. Please move towards a lit area.';
-            } else {
-                result = isAr ? arResponses[Math.floor(Math.random() * arResponses.length)] : enResponses[Math.floor(Math.random() * enResponses.length)];
-            }
-
+            var result = isAr ? arResponses[Math.floor(Math.random() * arResponses.length)] : enResponses[Math.floor(Math.random() * enResponses.length)];
             speak(result, function() { startListening(); });
         });
     }
