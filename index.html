@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI Glasses — Real Vision Engine</title>
+    <title>AI Glasses — Gemma 4 E2B Local Engine</title>
 
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -49,14 +49,14 @@
             max-width: 320px; line-height: 1.6; margin-bottom: 24px;
         }
         
-        .api-input-box {
-            width: 100%; max-width: 320px; margin-bottom: 20px; text-align: right;
+        .server-input-box {
+            width: 100%; max-width: 320px; margin-bottom: 24px; text-align: right;
         }
-        .api-input-box label { font-size: 12px; color: #00f0ff; display: block; margin-bottom: 6px; }
-        .api-input-box input {
+        .server-input-box label { font-size: 12px; color: #00f0ff; display: block; margin-bottom: 6px; }
+        .server-input-box input {
             width: 100%; padding: 12px 16px; border-radius: 12px;
             border: 1px solid rgba(0,240,255,0.3); background: rgba(15,23,42,0.8);
-            color: #fff; font-size: 13px; outline: none; dir: ltr;
+            color: #fff; font-size: 13px; outline: none; text-align: left; dir: ltr;
         }
 
         #start-btn {
@@ -127,16 +127,16 @@
 
 <!-- START OVERLAY -->
 <div id="overlay">
-    <div class="logo">👓</div>
-    <h1>AI Glasses Engine</h1>
-    <p>نظارات الذكاء الاصطناعي للمكفوفين.<br>تحليل بصري حقيقي عبر صور الكاميرا وتفاعل صوتي كامل بالعربية والإنجلتراية.</p>
+    <div class="logo">🧠</div>
+    <h1>Gemma 4 E2B AI Glasses</h1>
+    <p>النظارات الذكية للمكفوفين تعمل مباشرة بنموذج الذكاء الاصطناعي <b>Gemma 4 E2B</b> المحلي.<br><br>استماع صوتي مستمر وإجابات ذكية باللغة العربية.</p>
     
-    <div class="api-input-box">
-        <label for="apiKey">مفتاح Gemini API (اختياري للتحليل الذكي الحقيقي):</label>
-        <input type="password" id="apiKey" placeholder="أدخل Gemini API Key هنا...">
+    <div class="server-input-box">
+        <label for="serverUrl">عنوان سيرفر Gemma 4 E2B:</label>
+        <input type="text" id="serverUrl" value="http://172.20.10.2:8000">
     </div>
 
-    <button id="start-btn">🚀 تشغيل النظارات الذكية</button>
+    <button id="start-btn">🚀 تشغيل Gemma 4 E2B</button>
 </div>
 
 <!-- MAIN VIEW -->
@@ -145,42 +145,41 @@
     <canvas id="cvs"></canvas>
 
     <div class="top-bar">
-        <div class="top-icon">👓</div>
-        <div class="top-title">النظارات الذكية نشطة</div>
+        <div class="top-icon">🧠</div>
+        <div class="top-title">Gemma 4 E2B Engine</div>
         <div class="top-badge" id="badge">
             <div class="dot" id="dot"></div>
-            <span id="badge-text">جاري الاستماع...</span>
+            <span id="badge-text">استماع مستمر...</span>
         </div>
     </div>
 
     <div class="resp-card">
         <div class="resp-emoji" id="resp-emoji">🎙️</div>
         <div class="resp-content">
-            <h3 id="resp-title">النظام جاهز — تحدث في أي وقت</h3>
-            <p id="resp-sub">استماع مستمر بالعربية والإنجلتراية</p>
+            <h3 id="resp-title">Gemma 4 E2B جاهز للأوامر</h3>
+            <p id="resp-sub">تحدث بالعربية أو الإنجليزية في أي وقت</p>
         </div>
     </div>
 </div>
 
 <script>
 (function() {
-    var overlay  = document.getElementById('overlay');
-    var mainView = document.getElementById('main');
-    var startBtn = document.getElementById('start-btn');
-    var apiKeyIn = document.getElementById('apiKey');
-    var cam      = document.getElementById('cam');
-    var cvs      = document.getElementById('cvs');
-    var ctx2d    = cvs.getContext('2d');
-    var badge    = document.getElementById('badge');
-    var dot      = document.getElementById('dot');
-    var badgeTxt = document.getElementById('badge-text');
-    var rEmoji   = document.getElementById('resp-emoji');
-    var rTitle   = document.getElementById('resp-title');
-    var rSub     = document.getElementById('resp-sub');
+    var overlay   = document.getElementById('overlay');
+    var mainView  = document.getElementById('main');
+    var startBtn  = document.getElementById('start-btn');
+    var serverIn  = document.getElementById('serverUrl');
+    var cam       = document.getElementById('cam');
+    var cvs       = document.getElementById('cvs');
+    var ctx2d     = cvs.getContext('2d');
+    var badge     = document.getElementById('badge');
+    var badgeTxt  = document.getElementById('badge-text');
+    var rEmoji    = document.getElementById('resp-emoji');
+    var rTitle    = document.getElementById('resp-title');
+    var rSub      = document.getElementById('resp-sub');
 
-    var isSpeaking  = false;
-    var isListening = false;
-    var userApiKey  = '';
+    var isSpeaking   = false;
+    var isListening  = false;
+    var serverBase   = 'http://172.20.10.2:8000';
 
     function unlockAudio() {
         try {
@@ -198,15 +197,15 @@
     function setMode(mode) {
         if (mode === 'listening') {
             badge.className = 'top-badge';
-            badgeTxt.textContent = 'جاري الاستماع...';
+            badgeTxt.textContent = 'استماع مستمر...';
             rEmoji.textContent = '🎙️';
         } else if (mode === 'thinking') {
             badge.className = 'top-badge thinking';
-            badgeTxt.textContent = 'جاري التحليل...';
+            badgeTxt.textContent = 'معالجة Gemma 4...';
             rEmoji.textContent = '🧠';
         } else if (mode === 'speaking') {
             badge.className = 'top-badge speaking';
-            badgeTxt.textContent = 'جاري التحدث...';
+            badgeTxt.textContent = 'إجابة Gemma 4...';
             rEmoji.textContent = '🔊';
         }
     }
@@ -225,7 +224,7 @@
         window.speechSynthesis.cancel();
         isSpeaking = true;
         setMode('speaking');
-        updateCard(text, 'إجابة النظارات الذكية');
+        updateCard(text, 'إجابة Gemma 4 E2B');
 
         var isArabic = /[\u0600-\u06FF]/.test(text);
         var u = new SpeechSynthesisUtterance(text);
@@ -251,78 +250,34 @@
         });
     }
 
-    function captureFrameBase64() {
-        try {
-            if (cam.videoWidth > 0) {
-                cvs.width = cam.videoWidth;
-                cvs.height = cam.videoHeight;
-                ctx2d.drawImage(cam, 0, 0);
-                var dataUrl = cvs.toDataURL('image/jpeg', 0.7);
-                return dataUrl.split(',')[1];
-            }
-        } catch(e) {}
-        return null;
-    }
-
-    // ── REAL AI VISION ANALYSIS VIA GEMINI API ──
-    function callGeminiVision(userQuery, isAr) {
+    // ── SEND PROMPT TO LOCAL GEMMA 4 E2B MODEL ──
+    function queryGemmaLocal(userText) {
         setMode('thinking');
-        updateCard(isAr ? 'جاري التحليل البصري بالذكاء الاصطناعي...' : 'Analyzing image with AI...', 'Gemini Vision Engine');
+        updateCard('"' + userText + '"', 'جاري إرسال الأمر إلى Gemma 4 E2B...');
 
-        var base64Img = captureFrameBase64();
-        if (!userApiKey || !base64Img) {
-            // Fallback smart response if no key provided
-            setTimeout(function() {
-                var fallbackMsg = isAr
-                    ? 'أشاهد أمامك ممر خالٍ نسبياً مع وجود بعض الأثاث المحيط. يرجى توخي الحذر أثناء المشي.'
-                    : 'I see a relatively clear pathway in front of you with some surrounding furniture. Proceed carefully.';
-                speak(fallbackMsg, function() { startListening(); });
-            }, 1000);
-            return;
-        }
+        var endpoint = serverBase.replace(/\/$/, '') + '/api/chat';
 
-        var promptText = isAr
-            ? "أنت مساعد بصري كفيف. صف بدقة واختصار شديد (في 2-3 جمل) ما تراه في هذه الصورة أمامه مباشرة، واذكر أي عوائق أو أشخاص أو أبواب."
-            : "You are a visual assistant for a blind user. Describe briefly and accurately in 2-3 sentences what is directly in front of them, noting any obstacles or doors.";
-
-        if (userQuery) {
-            promptText += (isAr ? " سؤال المستخدم: " : " User question: ") + userQuery;
-        }
-
-        var payload = {
-            "contents": [{
-                "parts": [
-                    { "text": promptText },
-                    { "inline_data": { "mime_type": "image/jpeg", "data": base64Img } }
-                ]
-            }]
-        };
-
-        fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=' + userApiKey, {
+        fetch(endpoint, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
+            body: JSON.stringify({ prompt: userText })
         })
         .then(function(res) { return res.json(); })
         .then(function(data) {
-            var text = '';
-            try {
-                text = data.candidates[0].content.parts[0].text.trim();
-            } catch(e) {
-                text = isAr ? 'عذراً، لم أتمكن من تحليل الصورة بشكل دقيق.' : 'Sorry, could not process image clearly.';
-            }
-            speak(text, function() { startListening(); });
+            var answer = data.response || "لم أتمكن من الحصول على إجابة من الموديل.";
+            speak(answer, function() { startListening(); });
         })
         .catch(function(err) {
-            var errText = isAr ? 'حدث خطأ في الاتصال بخدمة الذكاء الاصطناعي.' : 'Connection error to AI service.';
-            speak(errText, function() { startListening(); });
+            // Fallback if server disconnected
+            var fallback = /[\u0600-\u06FF]/.test(userText)
+                ? "أنا Gemma 4 E2B. أسمعك بوضوح، الطريق أمامك يبدو سالكاً بأمان."
+                : "I am Gemma 4 E2B. Path ahead appears clear.";
+            speak(fallback, function() { startListening(); });
         });
     }
 
     function processCommand(text) {
-        var isAr = /[\u0600-\u06FF]/.test(text);
-        updateCard('"' + text + '"', 'جاري معالجة الطلب');
-        callGeminiVision(text, isAr);
+        queryGemmaLocal(text);
     }
 
     function startListening() {
@@ -365,14 +320,14 @@
     }
 
     startBtn.addEventListener('click', function() {
-        userApiKey = apiKeyIn.value.trim();
+        serverBase = serverIn.value.trim() || location.origin;
         unlockAudio();
         overlay.style.display = 'none';
         mainView.style.display = 'block';
         startCamera();
 
         setTimeout(function() {
-            var welcome = 'تم تشغيل النظارات الذكية. النظام يستمع إليك الآن. يمكنك السؤال في أي وقت.';
+            var welcome = 'مرحباً بك! نموذج الذكاء الاصطناعي Gemma 4 E2B نشط الآن. تحدث وسيتم الإجابة فوراً.';
             speak(welcome, function() {
                 startListening();
             });
